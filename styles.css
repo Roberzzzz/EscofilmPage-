@@ -1,0 +1,932 @@
+/* ==========================================================================
+   SISTEMA DE VARIABLES DE DISEÑO NEÓN Y RESET COMPLETO
+   ========================================================================== */
+:root {
+    --bg-pure-black: #030305;      /* Fondo ultra oscuro absorbente */
+    --bg-surface-dark: #0a0a0f;    /* Superficie de tarjetas futuristas */
+    --neon-blue: #00f0ff;          /* Cian neón eléctrico */
+    --neon-magenta: #ff007f;       /* Magenta/Morado cyber vibrante */
+    --text-primary: #ffffff;       /* Blanco puro */
+    --text-secondary: #8a8a93;     /* Gris espacial para descripciones */
+    --cyber-font-title: 'Orbitron', sans-serif;
+    --cyber-font-body: 'Space Grotesk', sans-serif;
+    --border-cyber: 1px solid rgba(0, 240, 255, 0.15);
+    --transition-cyber: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    align-items: stretch;
+
+    padding: 78px 0 0;
+    border: 2px solid #7f3cff;
+    margin: 0 8px 8px;
+    background: #12061f;
+    scroll-behavior: smooth;
+    font-family: var(--cyber-font-body);
+    background-color: var(--bg-pure-black);
+    color: var(--text-primary);
+}
+
+body {
+    overflow-x: hidden;
+}
+    background-image:
+        linear-gradient(180deg, rgba(5, 0, 14, 0.22) 0%, rgba(8, 0, 18, 0.44) 100%),
+        url('OIP%20(1).jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 1200px;
+    margin: 0 auto;
+.hero-video-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(7, 0, 14, 0.30) 0%, rgba(7, 0, 14, 0.48) 54%, rgba(7, 0, 14, 0.76) 100%),
+        linear-gradient(135deg, rgba(110, 36, 255, 0.10) 0%, rgba(255, 0, 128, 0.12) 50%, rgba(0, 240, 255, 0.08) 100%);
+}
+
+.cyber-gradient-overlay {
+}
+
+.cyber-section-title {
+    font-size: 2.3rem;
+    width: 100%;
+    pointer-events: none;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+.hero-main-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    width: min(100%, 900px);
+    margin: 0 auto;
+    align-self: center;
+    padding: 38px 24px 34px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+}
+
+.glitch-title {
+    font-family: var(--cyber-font-title);
+    font-size: clamp(2rem, 4.4vw, 4rem);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    color: #ffffff;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.22);
+    padding: 15px 32px;
+    font-family: var(--cyber-font-title);
+.hero-text-copy {
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.55;
+    margin: 0 auto 26px;
+    max-width: 760px;
+}
+
+.hero-cta-group {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+    color: #000000;
+    z-index: 0;
+    position: relative;
+    z-index: 2;
+    background: rgba(14, 14, 16, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+.hero-background-image {
+    color: #ffffff;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+.brand-strip-rail {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 18px;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(3,3,5,0.45) 0%, rgba(3,3,5,0.2) 50%, rgba(3,3,5,0.55) 100%);
+    pointer-events: none;
+}
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 0;
+    background: #ffffff;
+    color: #0b0b0d;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.brand-logos-group {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.brand-logo-chip {
+    min-height: 62px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.brand-logo-chip strong {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #0b0b0d;
+    font-family: var(--cyber-font-title);
+    font-size: 0.82rem;
+}
+
+.brand-logo-chip small {
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: left;
+}
+
+.brand-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.brand-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    opacity: 0.95;
+}
+
+.brand-dots span.active {
+    background: #ffffff;
+}
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline-white:hover {
+    border-color: var(--neon-blue);
+    color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   NAVBAR CON EFECTO DE DESFOCADO CRISTALINO FUTURISTA
+   ========================================================================== */
+.cyber-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 12px 0;
+    transition: var(--transition-cyber);
+    background-color: rgba(6, 6, 10, 0.96);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cyber-nav.scrolled {
+    background-color: rgba(6, 6, 10, 0.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cyber-logo {
+    font-family: var(--cyber-font-title);
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: 1px;
+    filter: brightness(1.1);
+}
+
+.cyber-logo span {
+    color: var(--neon-blue);
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+}
+
+.link-item {
+    font-family: var(--cyber-font-title);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: var(--transition-cyber);
+}
+
+.link-item:hover, .link-item.active {
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+}
+
+/* Menú hamburguesa móvil */
+.menu-hamburger {
+    display: none;
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.menu-hamburger .line {
+    width: 24px;
+    height: 2px;
+    background-color: var(--text-primary);
+    transition: var(--transition-cyber);
+}
+
+/* ==========================================================================
+   HERO SECCIÓN CON ESTILO CINEMATOGRÁFICO DE MARQUETA CYBER
+   ========================================================================== */
+.cyber-hero {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    align-items: stretch;
+    justify-content: stretch;
+    overflow: hidden;
+    padding: 78px 0 0;
+    margin: 0 8px 8px;
+    border: 2px solid #7f3cff;
+    background: #12061f;
+}
+
+.hero-video-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+        background:
+            linear-gradient(180deg, rgba(3, 3, 5, 0.35) 0%, rgba(3, 3, 5, 0.52) 100%),
+            linear-gradient(135deg, rgba(106, 0, 255, 0.18) 0%, rgba(255, 0, 128, 0.12) 52%, rgba(0, 240, 255, 0.1) 100%);
+
+.hero-video-wrapper video {
+    width: 100%;
+        max-width: 980px;
+        width: min(100%, 980px);
+        padding: 34px 26px 28px;
+
+        text-align: center;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 18px 55px rgba(0, 0, 0, 0.28);
+        backdrop-filter: blur(8px);
+.cyber-gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+        .hero-main-content { padding-left: 26px; }
+    height: 100%;
+    background: linear-gradient(135deg, rgba(3,3,5,0.95) 0%, rgba(3,3,5,0.6) 50%, rgba(3,3,5,0.95) 100%);
+}
+        display: none;
+
+.badge-futuristic {
+    display: inline-block;
+    padding: 6px 14px;
+    z-index: 0;
+    background-image: url("./OIP (1).jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-weight: 700;
+        margin-bottom: 18px;
+.hero-video-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(5, 0, 14, 0.20) 0%, rgba(8, 0, 18, 0.40) 100%),
+        linear-gradient(135deg, rgba(110, 36, 255, 0.12) 0%, rgba(255, 0, 128, 0.12) 50%, rgba(0, 240, 255, 0.08) 100%);
+}
+
+.cyber-gradient-overlay {
+    text-transform: uppercase;
+        justify-content: center;
+        margin-bottom: 0;
+}
+    width: 100%;
+    pointer-events: none;
+        display: none;
+
+.hero-main-content {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 860px);
+    max-width: 860px;
+    margin: 0 auto;
+    align-self: center;
+    padding: 38px 24px 34px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+}
+
+.glitch-title {
+    font-family: var(--cyber-font-title);
+    font-size: clamp(2rem, 4.4vw, 4rem);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    color: #ffffff;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.22);
+}
+
+.hero-text-copy {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.55;
+    margin: 0 auto 26px;
+    max-width: 760px;
+}
+
+.hero-cta-group {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.hero-brand-strip {
+    position: relative;
+    z-index: 2;
+    background: rgba(14, 14, 16, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px 18px 18px;
+    color: #ffffff;
+}
+
+.brand-strip-title {
+    text-align: center;
+    font-family: var(--cyber-font-body);
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+.brand-strip-rail {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 18px;
+    align-items: center;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.brand-arrow {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 0;
+    background: #ffffff;
+    color: #0b0b0d;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.brand-logos-group {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.brand-logo-chip {
+    min-height: 62px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.brand-logo-chip strong {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #0b0b0d;
+    font-family: var(--cyber-font-title);
+    font-size: 0.82rem;
+}
+
+.brand-logo-chip small {
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: left;
+}
+
+.brand-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.brand-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    opacity: 0.95;
+}
+
+.brand-dots span.active {
+    background: #ffffff;
+}
+.service-index {
+    font-family: var(--cyber-font-title);
+    color: var(--neon-blue);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.service-card h3 {
+    font-family: var(--cyber-font-title);
+    font-size: 1.2rem;
+    margin-bottom: 14px;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   SECCIÓN SOBRE NOSOTROS: RETÍCULA CREW CON HOVER DINÁMICO
+   ========================================================================== */
+.about-section {
+    background-color: var(--bg-pure-black);
+    border-top: var(--border-cyber);
+}
+
+.about-section .section-header-flex {
+    margin-bottom: 36px;
+}
+
+.crew-reticule {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.crew-card {
+    flex: 1 1 calc(33.333% - 30px);
+    background-color: var(--bg-surface-dark);
+    border: var(--border-cyber);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: var(--transition-cyber);
+}
+
+.crew-image-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.crew-avatar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--cyber-font-title);
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: #ffffff;
+    text-shadow: 0 0 18px rgba(0, 0, 0, 0.45);
+    transition: var(--transition-cyber);
+}
+
+.crew-avatar-blue {
+    background: radial-gradient(circle at 30% 30%, rgba(0, 240, 255, 0.35), transparent 42%), linear-gradient(135deg, #1a2238 0%, #060814 55%, #0f3a52 100%);
+}
+
+.crew-avatar-magenta {
+    background: radial-gradient(circle at 30% 30%, rgba(255, 0, 127, 0.3), transparent 42%), linear-gradient(135deg, #2d1024 0%, #08050c 55%, #4b1533 100%);
+}
+
+.crew-avatar-dark {
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 42%), linear-gradient(135deg, #111111 0%, #050505 55%, #22252c 100%);
+}
+
+.crew-meta {
+    padding: 25px;
+    border-top: var(--border-cyber);
+}
+
+.crew-meta h3 {
+    font-family: var(--cyber-font-title);
+    font-size: 1.15rem;
+    margin-bottom: 5px;
+}
+
+.crew-role {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Interacción Cyberpunk del Crew */
+.crew-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--neon-magenta);
+    box-shadow: 0 5px 20px rgba(255, 0, 127, 0.2);
+}
+
+.crew-card:hover .crew-image-box img {
+    filter: none;
+    transform: scale(1.03);
+}
+
+.crew-card:hover .crew-avatar {
+    transform: scale(1.03);
+}
+
+/* ==========================================================================
+   PREVIEW DE PORTAFOLIO: RETÍCULA CSS GRID
+   ========================================================================== */
+.portfolio-teaser-section {
+    background-color: #06060a;
+    border-top: var(--border-cyber);
+}
+
+.section-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 50px;
+}
+
+.link-arrow-action {
+    font-family: var(--cyber-font-title);
+    font-size: 0.85rem;
+    color: var(--neon-blue);
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition-cyber);
+    padding-bottom: 5px;
+    border-bottom: 1px solid transparent;
+}
+
+.link-arrow-action:hover {
+    color: var(--text-primary);
+    border-bottom-color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.teaser-display-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.teaser-card {
+    background-color: var(--bg-surface-dark);
+    border: var(--border-cyber);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: var(--transition-cyber);
+    cursor: pointer;
+}
+
+.teaser-video-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.teaser-native-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-cyber);
+}
+
+.teaser-content-info {
+    padding: 30px;
+}
+
+.content-category-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--neon-blue);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.teaser-content-info h3 {
+    font-family: var(--cyber-font-title);
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+.teaser-content-info p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Interacciones del portafolio interactivo */
+.teaser-card:hover {
+    border-color: var(--neon-blue);
+    box-shadow: 0 8px 25px rgba(0, 240, 255, 0.15);
+}
+
+.teaser-card:hover .teaser-native-video {
+    transform: scale(1.03);
+}
+
+/* ==========================================================================
+   SECCIÓN BLOG / RECURSOS
+   ========================================================================== */
+.blog-teaser-section {
+    background-color: var(--bg-pure-black);
+    border-top: var(--border-cyber);
+}
+
+.blog-articles-reticule {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.blog-card-item {
+    background-color: var(--bg-surface-dark);
+    border-left: 3px solid var(--neon-magenta);
+    padding: 35px;
+    border-top: 1px solid rgba(255,255,255,0.02);
+    border-right: 1px solid rgba(255,255,255,0.02);
+    border-bottom: 1px solid rgba(255,255,255,0.02);
+    transition: var(--transition-cyber);
+}
+
+.blog-card-meta-date {
+    font-family: var(--cyber-font-title);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.blog-title-link {
+    font-family: var(--cyber-font-title);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 700;
+    transition: var(--transition-cyber);
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.blog-title-link:hover {
+    color: var(--neon-blue);
+}
+
+.blog-card-item p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 900px;
+}
+
+.blog-card-item:hover {
+    background-color: rgba(255, 0, 127, 0.02);
+    transform: translateX(5px);
+}
+
+/* ==========================================================================
+   PROCESO DE TRABAJO
+   ========================================================================== */
+.process-section {
+    background-color: #05050a;
+    border-top: var(--border-cyber);
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.process-step {
+    background-color: var(--bg-surface-dark);
+    border: var(--border-cyber);
+    border-radius: 4px;
+    padding: 28px;
+    min-height: 220px;
+    transition: var(--transition-cyber);
+}
+
+.process-step:hover {
+    transform: translateY(-6px);
+    border-color: var(--neon-blue);
+    box-shadow: 0 10px 24px rgba(0, 240, 255, 0.1);
+}
+
+.process-step span {
+    display: inline-block;
+    font-family: var(--cyber-font-title);
+    color: var(--neon-magenta);
+    margin-bottom: 22px;
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+}
+
+.process-step h3 {
+    font-family: var(--cyber-font-title);
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.process-step p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   CTA BANNER & FOOTER TERMINADOS
+   ========================================================================== */
+.cta-banner-home {
+    background: linear-gradient(90deg, #0a0a14 0%, #12051a 100%);
+    border-top: var(--border-cyber);
+    border-bottom: var(--border-cyber);
+}
+
+.cta-flex-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 80px 20px;
+}
+
+.cta-text-side h2 {
+    font-family: var(--cyber-font-title);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.cta-text-side p {
+    color: var(--text-secondary);
+}
+
+.cta-actions-side {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.whatsapp-quick-link {
+    font-family: var(--cyber-font-title);
+    font-size: 0.85rem;
+    color: #25d366;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: var(--transition-cyber);
+}
+
+.whatsapp-quick-link:hover {
+    text-shadow: 0 0 10px rgba(37, 211, 102, 0.6);
+}
+
+.cyber-footer {
+    background-color: #020203;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.footer-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.footer-social-channels {
+    display: flex;
+    gap: 25px;
+}
+
+.social-link-item {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition-cyber);
+}
+
+.social-link-item:hover {
+    color: var(--neon-blue);
+}
+
+/* ==========================================================================
+   MEDIA QUERIES INTEGRADOS COMPLETOS
+   ========================================================================== */
+@media (max-width: 992px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .crew-card { flex: 1 1 calc(50% - 30px); }
+    .teaser-display-grid { grid-template-columns: 1fr; }
+    .cta-flex-box { flex-direction: column; gap: 35px; text-align: center; }
+    .cta-actions-side { flex-direction: column; width: 100%; gap: 20px; }
+    .cyber-btn { width: 100%; }
+}
+
+@media (max-width: 768px) {
+    .glitch-title { font-size: 2.3rem; }
+    .cyber-section-title { font-size: 1.8rem; }
+    .menu-hamburger { display: flex; }
+    .process-grid { grid-template-columns: 1fr; }
+    .cyber-hero { padding-top: 72px; }
+    .hero-main-content { padding: 28px 18px 24px; }
+    .hero-cta-group { flex-direction: column; align-items: center; }
+    .brand-strip-rail { grid-template-columns: 1fr; }
+    .brand-arrow { display: none; }
+    .brand-logos-group { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(3, 3, 5, 0.98);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        align-items: center;
+        padding-top: 60px;
+        transition: var(--transition-cyber);
+    }
+    
+    .nav-links.active { left: 0; }
+    .crew-card { flex: 1 1 100%; }
+    .footer-content-wrapper { flex-direction: column; gap: 20px; text-align: center; }
+}
