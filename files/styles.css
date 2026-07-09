@@ -1,20 +1,5 @@
-/* ==========================================================
-   ESCOFILM 
-   Tokens:
-   --black:        #0a0a0a  fondo base
-   --charcoal:     #121214  paneles / secciones alternas
-   --off-white:    #f2f0ec  texto principal (blanco cálido, no puro)
-   --grey:         rgba(242,240,236,0.6)  texto secundario
-   --tally:        #ff2d55  acento único de grabación (REC, timecode, claquetas)
-   --neon-violet:  #a855f7  acento cyberpunk — bordes, glows, grid de fondo
-   --neon-cyan:    #22d3ee  acento cyberpunk — hover de íconos, glows secundarios
-   Tipografía:
-   display -> 'Bebas Neue' (impactante, condensada)
-   mono    -> 'JetBrains Mono' (timecodes, etiquetas, claquetas)
-   body    -> 'Montserrat' (texto de lectura)
-   
-   DATOS PARA CUANDO NOS TOQUE EXPLICAR EL DISEÑO DE LA PAGE
-   ========================================================== */
+/* colores y fuentes del sitio, todo con tema de cámara/rodaje
+   tally = el rojo de grabación, neon-violet/cyan = el toque cyberpunk */
 
 * {
     margin: 0;
@@ -199,7 +184,7 @@ a {
     mix-blend-mode: overlay;
 }
 
-/* Letterbox — barras cinematográficas 2.39:1 */
+/* las barras negras arriba/abajo, para que se vea "cine" xd */
 .letterbox-top,
 .letterbox-bottom {
     position: absolute;
@@ -213,7 +198,7 @@ a {
 .letterbox-top { top: 0; }
 .letterbox-bottom { bottom: 0; }
 
-/* Marco tipo visor de cámara */
+/* el marco con las esquinitas, como un visor de cámara */
 .viewfinder-frame {
     position: absolute;
     inset: calc(7vh + 30px) 40px;
@@ -439,7 +424,7 @@ a {
     overflow: hidden;
 }
 
-/* Grid cyberpunk de fondo DEL eco de la carretera del hero, textura sutil */
+/* la cuadricula de fondo, para que no se vea tan plano el negro */
 .services::before,
 .portfolio::before,
 .contact::before {
@@ -455,7 +440,7 @@ a {
     pointer-events: none;
 }
 
-/* Glows ambientales en las esquinas PQ le dan profundidad al negro plano */
+/* glow morado en la esquina, le da un poco de vida al fondo */
 .services::after {
     content: '';
     position: absolute;
@@ -530,13 +515,13 @@ a {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* negro original del SVG = blanco cálido, vía filtro */
+    /* los iconos vienen en negro, con esto se ven blancos sin editar el svg */
     filter: invert(1) brightness(0.95);
     transition: filter 0.35s ease;
 }
 
 .service-card:hover .service-icon img {
-    /* blanco = tinte cian neón Y resplandor, al hacer hover */
+    /* aqui se logra el efecto neon cyan al pasar el mouse, jugando con el filter */
     filter: invert(70%) sepia(59%) saturate(1919%) hue-rotate(155deg) brightness(101%) contrast(101%)
             drop-shadow(0 0 8px rgba(34, 211, 238, 0.7));
 }
@@ -554,10 +539,8 @@ a {
     line-height: 1.6;
 }
 
-/* ---------- PERFORACIÓN DE ROLLO DE PELÍCULA ---------- */
-/* Divisor reutilizado entre secciones: simula el borde perforado de un
-   negativo de 35mm. Es el motivo estructural que amarra todo el sitio
-   al concepto de rodaje. */
+/* ---------- TIRA DE PELÍCULA (divisor entre secciones) ---------- */
+/* simula los agujeritos de un rollo de 35mm, se repite entre secciones */
 
 .film-perf {
     height: 22px;
@@ -572,7 +555,7 @@ a {
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* ---------- PORTAFOLIO  ---------- */
+/* ---------- PORTAFOLIO — TIRA DE NEGATIVO ---------- */
 
 .portfolio {
     position: relative;
@@ -757,7 +740,7 @@ a {
     .social-link { width: 90px; height: 90px; }
 }
 
-/* ---------- ACCESIBILIDAD: REDUCED MOTION ---------- */
+/* ---------- ACCESIBILIDAD: reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {

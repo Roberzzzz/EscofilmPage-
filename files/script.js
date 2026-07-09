@@ -1,4 +1,4 @@
-// Header con fondo al hacer scroll
+// pone fondo al header cuando haces scroll
 document.addEventListener("DOMContentLoaded", function() {
     const header = document.querySelector(".main-header");
 
@@ -7,20 +7,22 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// Timecode del hero (HH:MM:SS)
+// timecode del hero, va sumando segundos como si estuviera grabando xd
 document.addEventListener('DOMContentLoaded', () => {
     const tc = document.getElementById('timecode');
     if (!tc) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return; // se queda en 00:00:00, quieto
+    if (prefersReducedMotion) return; // se queda quieto en 00:00:00
 
     const start = Date.now();
 
+    // agrega el 0 de relleno (1 -> 01)
     function pad(n) {
         return String(n).padStart(2, '0');
     }
 
+    // calcula horas/min/seg desde que cargó la página y actualiza el texto
     function tick() {
         const totalSeconds = Math.floor((Date.now() - start) / 1000);
         const seconds = totalSeconds % 60;
@@ -34,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(tick, 1000);
 });
 
-// Reveal escalonado al hacer scroll (servicios y portafolio)
+// hace que las cards de servicios y portafolio aparezcan poco a poco al hacer scroll
 document.addEventListener('DOMContentLoaded', () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const items = document.querySelectorAll('.service-card, .reel-card');
@@ -45,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // delay escalonado para que no aparezcan todas al mismo tiempo
     items.forEach((el, i) => {
         el.style.setProperty('--delay', `${(i % 6) * 80}ms`);
     });
@@ -61,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     items.forEach(el => observer.observe(el));
 });
 
-// Carrusel de marcas 
+// carrusel de logos/marcas
 document.addEventListener('DOMContentLoaded', () => {
     const wrapper = document.querySelector('.carousel-wrapper');
     const track = document.getElementById('linksTrack');
@@ -81,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isAnimating = false;
     let itemWidth = 0;
 
+    // crea un <img> de logo con sus atributos
     function createImg(logo) {
         const img = document.createElement('img');
         img.src = logo.src;
@@ -90,10 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return img;
     }
 
+    // saca el logo que corresponde en el índice i (con wrap-around, por eso el modulo)
     function getLogoAt(i) {
         return logos[((i % logos.length) + logos.length) % logos.length];
     }
 
+    // mide el ancho de un logo + el gap, para saber cuanto mover el track
     function measure() {
         const style = getComputedStyle(track);
         const gap = parseFloat(style.columnGap || style.gap) || 0;
@@ -103,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         wrapper.style.width = (itemWidth * VISIBLE - gap) + 'px';
     }
 
+    // pinta los logos visibles actuales sin animación (estado "de reposo")
     function renderStatic() {
         track.style.transition = 'none';
         track.style.transform = 'translateX(0)';
@@ -114,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderDots();
     }
 
+    // dibuja los puntitos de abajo del carrusel
     function renderDots() {
         dotsContainer.innerHTML = '';
         logos.forEach((_, i) => {
@@ -129,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // bloquea los botones mientras corre la animación, para que no se rompa el conteo
     function lockDuring(fn) {
         if (isAnimating) return;
         isAnimating = true;
@@ -141,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // avanza un logo hacia adelante con transición
     function goNext() {
         lockDuring((unlock) => {
             track.style.transition = 'none';
@@ -166,6 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // retrocede un logo hacia atrás con transición
     function goPrev() {
         lockDuring((unlock) => {
             track.style.transition = 'none';
