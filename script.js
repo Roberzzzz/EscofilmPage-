@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.querySelector('.link-carousel .prev');
     const nextBtn = document.querySelector('.link-carousel .next');
     const dotsContainer = document.querySelector('.carousel-dots');
+    const carousel = document.querySelector('.link-carousel');
 
     if (!track) return;
 
@@ -77,9 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
 
     const VISIBLE = 4;
+    const AUTOPLAY_DELAY = 3200; // ms entre cada avance automático
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let currentIndex = 0;
     let isAnimating = false;
     let itemWidth = 0;
+    let autoplayTimer = null;
 
     function createImg(logo) {
         const img = document.createElement('img');
@@ -124,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (isAnimating || i === currentIndex) return;
                 currentIndex = i;
                 renderStatic();
+                restartAutoplay();
             });
             dotsContainer.appendChild(dot);
         });
@@ -192,12 +197,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    prevBtn.addEventListener('click', goPrev);
-    nextBtn.addEventListener('click', goNext);
+    // ---- Autoplay ----
+    function startAutoplay() {
+        if (prefersReducedMotion || logos.length <= VISIBLE) return;
+        stopAutoplay();
+        autoplayTimer = setInterval(() => {
+            if (!isAnimating) goNext();
+        }, AUTOPLAY_DELAY);
+    }
+
+    function stopAutoplay() {
+        if (autoplayTimer) {
+            clearInterval(autoplayTimer);
+            autoplayTimer = null;
+        }
+    }
+
+    function restartAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+    }
+
+    prevBtn.addEventListener('click', () => { goPrev(); restartAutoplay(); });
+    nextBtn.addEventListener('click', () => { goNext(); restartAutoplay(); });
+
+    // Pausar al pasar el mouse o al enfocar con teclado, reanudar al salir
+    if (carousel) {
+        carousel.addEventListener('mouseenter', stopAutoplay);
+        carousel.addEventListener('mouseleave', startAutoplay);
+        carousel.addEventListener('focusin', stopAutoplay);
+        carousel.addEventListener('focusout', startAutoplay);
+    }
+
+    // Pausar cuando la pestaña no está visible, para no acumular saltos
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopAutoplay();
+        else startAutoplay();
+    });
 
     window.addEventListener('resize', () => {
         if (!isAnimating) measure();
     });
 
     renderStatic();
+    startAutoplay();
 });
