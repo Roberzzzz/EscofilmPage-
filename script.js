@@ -1,11 +1,55 @@
-// Header con fondo al hacer scroll
-document.addEventListener("DOMContentLoaded", function() {
-    const header = document.querySelector(".main-header");
+// Preloader: la página carga en tiempo real. El aro NO se muestra salvo que
+// a los SHOW_AFTER_MS desde el inicio de la navegación la carga siga en curso,
+// y se va apenas termina — sin mínimos ni esperas artificiales.
+//
+// Este bloque corre de inmediato (no en DOMContentLoaded) por dos razones:
+// el div del preloader ya existe cuando el parser llega hasta acá, y el umbral
+// necesita contarse desde que el usuario pidió la página, no desde este script.
+(() => {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
 
-    window.addEventListener("scroll", function() {
-        header.classList.toggle("scrolled", window.scrollY > 30);
-    });
-});
+    const SHOW_AFTER_MS = 400;  // por debajo de esto no se ve absolutamente nada
+    const MAX_MS = 8000;        // red de seguridad: si algo nunca carga, igual se va
+    let shown = false;
+    let done = false;
+
+    function show() {
+        if (done || shown) return;
+        shown = true;
+        preloader.classList.add('is-visible');
+        // El bloqueo de scroll lo pone este código, nunca el HTML: si el JS
+        // no llegara a correr, la página queda usable en vez de trabada
+        document.body.classList.add('is-loading');
+    }
+
+    function finish() {
+        if (done) return;
+        done = true;
+        clearTimeout(showTimer);
+        document.body.classList.remove('is-loading');
+
+        // Si nunca llegó a verse, fuera sin ceremonia ni fundido
+        if (!shown) {
+            preloader.remove();
+            return;
+        }
+
+        preloader.classList.remove('is-visible');
+        // Fuera del DOM al terminar el fundido: si no, el overlay sigue ahí
+        // capturando clics aunque no se vea
+        preloader.addEventListener('transitionend', () => preloader.remove(), { once: true });
+        setTimeout(() => preloader.remove(), 900); // por si transitionend no dispara
+    }
+
+    // performance.now() = ms desde que arrancó la navegación
+    const showTimer = setTimeout(show, Math.max(0, SHOW_AFTER_MS - performance.now()));
+
+    if (document.readyState === 'complete') finish();
+    else window.addEventListener('load', finish);
+
+    setTimeout(finish, MAX_MS);
+})();
 
 // Timecode del hero (HH:MM:SS)
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,6 +76,84 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tick();
     setInterval(tick, 1000);
+});
+
+// Header con fondo al hacer scroll + link activo según la sección visible
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.main-header');
+    const links = Array.from(document.querySelectorAll('.main-nav ul a[href^="#"]'));
+
+    const targets = links
+        .map(link => {
+            const section = document.querySelector(link.getAttribute('href'));
+            return section ? { link, section } : null;
+        })
+        .filter(Boolean);
+
+    let ticking = false;
+
+    function update() {
+        ticking = false;
+
+        if (header) {
+            header.classList.toggle('scrolled', window.scrollY > 30);
+        }
+
+        if (!targets.length) return;
+
+        // La sección activa es la última cuyo inicio ya pasó bajo el header
+        const line = window.scrollY + 120;
+        let active = targets[0];
+        targets.forEach(t => {
+            if (t.section.offsetTop <= line) active = t;
+        });
+
+        // Al tocar fondo gana siempre la última: si no, una sección corta
+        // al final nunca llegaría a marcarse
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 2) {
+            active = targets[targets.length - 1];
+        }
+
+        links.forEach(l => l.classList.toggle('active', l === active.link));
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            ticking = true;
+            window.requestAnimationFrame(update);
+        }
+    }, { passive: true });
+
+    update();
+});
+
+// Menú móvil
+document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('navToggle');
+    const nav = document.getElementById('mainNav');
+    if (!toggle || !nav) return;
+
+    function setOpen(open) {
+        nav.classList.toggle('open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+        document.body.classList.toggle('nav-open', open);
+    }
+
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+
+    nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => setOpen(false));
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') setOpen(false);
+    });
+
+    // Si se agranda la ventana con el panel abierto, el body queda bloqueado
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) setOpen(false);
+    });
 });
 
 // Reveal escalonado al hacer scroll (servicios y portafolio)
@@ -61,184 +183,68 @@ document.addEventListener('DOMContentLoaded', () => {
     items.forEach(el => observer.observe(el));
 });
 
-// Carrusel de marcas 
+// Marquee de marcas — cinta infinita, sin flechas ni controles.
+// El HTML solo trae el set real de logos una vez; aquí se clona hasta cubrir
+// el ancho y se le dice a la animación que recorra exactamente el ancho de un
+// grupo. Como el grupo siguiente es idéntico, el reinicio cae sobre el mismo
+// fotograma y el bucle no se ve.
 document.addEventListener('DOMContentLoaded', () => {
-    const wrapper = document.querySelector('.carousel-wrapper');
-    const track = document.getElementById('linksTrack');
-    const prevBtn = document.querySelector('.link-carousel .prev');
-    const nextBtn = document.querySelector('.link-carousel .next');
-    const dotsContainer = document.querySelector('.carousel-dots');
-    const carousel = document.querySelector('.link-carousel');
+    const marquee = document.getElementById('brandMarquee');
+    const track = document.getElementById('marqueeTrack');
+    if (!marquee || !track) return;
 
-    if (!track) return;
+    const original = track.querySelector('.marquee-group');
+    if (!original) return;
 
-    const logos = Array.from(track.querySelectorAll('img')).map(img => ({
-        src: img.getAttribute('src'),
-        title: img.getAttribute('title') || ''
-    }));
+    // Con reduced-motion la cinta no se anima: el CSS la deja deslizable a mano
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const VISIBLE = 4;
-    const AUTOPLAY_DELAY = 3200; // ms entre cada avance automático
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let currentIndex = 0;
-    let isAnimating = false;
-    let itemWidth = 0;
-    let autoplayTimer = null;
+    const SPEED = 55; // px/segundo — la velocidad no cambia si agregan logos
+    let lastWidth = 0;
 
-    function createImg(logo) {
-        const img = document.createElement('img');
-        img.src = logo.src;
-        img.title = logo.title;
-        img.alt = logo.title;
-        img.classList.add('social-link');
-        return img;
-    }
+    function build() {
+        const containerWidth = marquee.offsetWidth;
+        if (!containerWidth) return;
 
-    function getLogoAt(i) {
-        return logos[((i % logos.length) + logos.length) % logos.length];
-    }
+        track.querySelectorAll('.marquee-group').forEach((group, i) => {
+            if (i > 0) group.remove();
+        });
 
-    function measure() {
-        const style = getComputedStyle(track);
-        const gap = parseFloat(style.columnGap || style.gap) || 0;
-        const firstItem = track.querySelector('.social-link');
-        const w = firstItem ? firstItem.getBoundingClientRect().width : 125;
-        itemWidth = w + gap;
-        wrapper.style.width = (itemWidth * VISIBLE - gap) + 'px';
-    }
+        const groupWidth = original.getBoundingClientRect().width;
+        if (!groupWidth) return;
 
-    function renderStatic() {
-        track.style.transition = 'none';
-        track.style.transform = 'translateX(0)';
-        track.innerHTML = '';
-        for (let i = 0; i < VISIBLE; i++) {
-            track.appendChild(createImg(getLogoAt(currentIndex + i)));
+        // Hace falta cubrir el viewport MÁS un grupo de sobra: la animación
+        // desplaza un grupo entero, así que sin ese extra se abre un hueco
+        // en blanco justo antes de reiniciar.
+        const copies = Math.ceil(containerWidth / groupWidth) + 1;
+        for (let i = 0; i < copies; i++) {
+            const clone = original.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true'); // duplicados decorativos
+            track.appendChild(clone);
         }
-        measure();
-        renderDots();
+
+        track.style.setProperty('--marquee-distance', `-${groupWidth}px`);
+        track.style.setProperty('--marquee-duration', `${groupWidth / SPEED}s`);
+        lastWidth = containerWidth;
     }
 
-    function renderDots() {
-        dotsContainer.innerHTML = '';
-        logos.forEach((_, i) => {
-            const dot = document.createElement('span');
-            dot.classList.add('dot');
-            if (i === currentIndex) dot.classList.add('active');
-            dot.addEventListener('click', () => {
-                if (isAnimating || i === currentIndex) return;
-                currentIndex = i;
-                renderStatic();
-                restartAutoplay();
-            });
-            dotsContainer.appendChild(dot);
-        });
-    }
+    build();
 
-    function lockDuring(fn) {
-        if (isAnimating) return;
-        isAnimating = true;
-        prevBtn.disabled = true;
-        nextBtn.disabled = true;
-        fn(() => {
-            isAnimating = false;
-            prevBtn.disabled = false;
-            nextBtn.disabled = false;
-        });
-    }
+    // Los logos tienen tamaño fijo por CSS, pero si alguno llega tarde el
+    // ancho del grupo puede cambiar
+    window.addEventListener('load', build);
 
-    function goNext() {
-        lockDuring((unlock) => {
-            track.style.transition = 'none';
-            track.innerHTML = '';
-            for (let i = 0; i < VISIBLE + 1; i++) {
-                track.appendChild(createImg(getLogoAt(currentIndex + i)));
-            }
-            measure();
-            track.style.transform = 'translateX(0)';
-
-            void track.offsetWidth;
-
-            track.style.transition = 'transform 0.4s ease';
-            track.style.transform = `translateX(-${itemWidth}px)`;
-
-            const onEnd = () => {
-                track.removeEventListener('transitionend', onEnd);
-                currentIndex = (currentIndex + 1) % logos.length;
-                renderStatic();
-                unlock();
-            };
-            track.addEventListener('transitionend', onEnd);
-        });
-    }
-
-    function goPrev() {
-        lockDuring((unlock) => {
-            track.style.transition = 'none';
-            track.innerHTML = '';
-            track.appendChild(createImg(getLogoAt(currentIndex - 1)));
-            for (let i = 0; i < VISIBLE; i++) {
-                track.appendChild(createImg(getLogoAt(currentIndex + i)));
-            }
-            measure();
-            track.style.transform = `translateX(-${itemWidth}px)`;
-
-            void track.offsetWidth;
-
-            track.style.transition = 'transform 0.4s ease';
-            track.style.transform = 'translateX(0)';
-
-            const onEnd = () => {
-                track.removeEventListener('transitionend', onEnd);
-                currentIndex = (currentIndex - 1 + logos.length) % logos.length;
-                renderStatic();
-                unlock();
-            };
-            track.addEventListener('transitionend', onEnd);
-        });
-    }
-
-    // ---- Autoplay ----
-    function startAutoplay() {
-        if (prefersReducedMotion || logos.length <= VISIBLE) return;
-        stopAutoplay();
-        autoplayTimer = setInterval(() => {
-            if (!isAnimating) goNext();
-        }, AUTOPLAY_DELAY);
-    }
-
-    function stopAutoplay() {
-        if (autoplayTimer) {
-            clearInterval(autoplayTimer);
-            autoplayTimer = null;
-        }
-    }
-
-    function restartAutoplay() {
-        stopAutoplay();
-        startAutoplay();
-    }
-
-    prevBtn.addEventListener('click', () => { goPrev(); restartAutoplay(); });
-    nextBtn.addEventListener('click', () => { goNext(); restartAutoplay(); });
-
-    // Pausar al pasar el mouse o al enfocar con teclado, reanudar al salir
-    if (carousel) {
-        carousel.addEventListener('mouseenter', stopAutoplay);
-        carousel.addEventListener('mouseleave', startAutoplay);
-        carousel.addEventListener('focusin', stopAutoplay);
-        carousel.addEventListener('focusout', startAutoplay);
-    }
-
-    // Pausar cuando la pestaña no está visible, para no acumular saltos
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) stopAutoplay();
-        else startAutoplay();
-    });
-
+    let resizeTimer;
     window.addEventListener('resize', () => {
-        if (!isAnimating) measure();
+        // Reconstruir reinicia la animación: solo si el ancho cambió de verdad
+        if (marquee.offsetWidth === lastWidth) return;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(build, 150);
     });
+});
 
-    renderStatic();
-    startAutoplay();
+// Año del footer
+document.addEventListener('DOMContentLoaded', () => {
+    const year = document.getElementById('year');
+    if (year) year.textContent = new Date().getFullYear();
 });

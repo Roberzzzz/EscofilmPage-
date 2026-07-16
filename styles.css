@@ -1,5 +1,5 @@
 /* ==========================================================
-   ESCOFILM 
+   ESCOFILM
    Tokens:
    --black:        #0a0a0a  fondo base
    --charcoal:     #121214  paneles / secciones alternas
@@ -12,7 +12,12 @@
    display -> 'Bebas Neue' (impactante, condensada)
    mono    -> 'JetBrains Mono' (timecodes, etiquetas, claquetas)
    body    -> 'Montserrat' (texto de lectura)
-   
+
+   Ritmo de secciones:
+   hero (full-bleed) -> marquee (banda) -> servicios (grid roto 2/3/1)
+   -> portafolio (tira de 3) -> nosotros (split) -> contacto (3 canales).
+   Los fondos alternan black/charcoal para separar bloque de bloque.
+
    DATOS PARA CUANDO NOS TOQUE EXPLICAR EL DISEÑO DE LA PAGE
    ========================================================== */
 
@@ -34,6 +39,7 @@
     --mono: 'JetBrains Mono', monospace;
     --display: 'Bebas Neue', sans-serif;
     --body-font: 'Montserrat', sans-serif;
+    --header-h: 84px;
 }
 
 html {
@@ -46,6 +52,11 @@ body {
     color: var(--off-white);
     background-color: var(--black);
     overflow-x: hidden;
+}
+
+body.nav-open,
+body.is-loading {
+    overflow: hidden;
 }
 
 a {
@@ -62,6 +73,123 @@ a {
     outline-offset: 3px;
 }
 
+/* Los anchors caen bajo el header fijo si no se compensa */
+section[id],
+main[id] {
+    scroll-margin-top: var(--header-h);
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 200;
+    background: var(--tally);
+    color: #fff;
+    padding: 12px 20px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    left: 0;
+}
+
+/* ---------- PRELOADER ---------- */
+/* Loader original de Uiverse.io por fanishah. Se mantiene tal cual salvo
+   por tres ajustes anotados abajo, necesarios para integrarlo aquí. */
+
+.preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--black);
+    /* Arranca invisible a propósito: si la página carga rápido no se ve nunca.
+       Solo el JS lo enciende, y únicamente si la carga se alarga. */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.preloader.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* AJUSTE 1: envoltorio de tamaño fijo. El .skugga original es absolute sin
+   top/left, así que caía donde lo dejara el flujo en vez de encima del aro. */
+.loader-spinner {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.loader-spinner .snurra,
+.loader-spinner .skugga {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.gegga {
+    width: 0;
+    /* AJUSTE 2: sin height/position el SVG de defs reserva 150px de alto
+       y descentra el aro */
+    height: 0;
+    position: absolute;
+}
+
+.snurra {
+    filter: url(#escofilm-loader-goo);
+}
+
+.stopp1 {
+    stop-color: #f700a8;
+}
+
+.stopp2 {
+    stop-color: #ff8000;
+}
+
+.halvan {
+    animation: Snurra1 10s infinite linear;
+    stroke-dasharray: 180 800;
+    fill: none;
+    stroke: url(#escofilm-loader-gradient);
+    stroke-width: 23;
+    stroke-linecap: round;
+}
+
+.strecken {
+    animation: Snurra1 3s infinite linear;
+    stroke-dasharray: 26 54;
+    fill: none;
+    stroke: url(#escofilm-loader-gradient);
+    stroke-width: 23;
+    stroke-linecap: round;
+}
+
+/* AJUSTE 3: el position:absolute se movió al bloque de arriba */
+.skugga {
+    filter: blur(5px);
+    opacity: 0.3;
+    transform: translate(3px, 3px);
+}
+
+@keyframes Snurra1 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+
+    100% {
+        stroke-dashoffset: -403px;
+    }
+}
+
 /* ---------- HEADER ---------- */
 
 .main-header {
@@ -72,15 +200,17 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 26px 60px;
+    gap: 24px;
+    padding: 22px 60px;
     z-index: 100;
     background-color: rgba(10, 10, 10, 0.35);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+    transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
 }
 
 .main-header.scrolled {
+    padding: 14px 60px;
     background: rgba(10, 10, 10, 0.92);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -93,6 +223,8 @@ a {
     font-size: 1.9rem;
     letter-spacing: 4px;
     color: var(--off-white);
+    text-decoration: none;
+    white-space: nowrap;
 }
 
 .rec-dot {
@@ -102,6 +234,7 @@ a {
     background: var(--tally);
     box-shadow: 0 0 8px 2px var(--tally);
     animation: pulse 1.4s ease-in-out infinite;
+    flex-shrink: 0;
 }
 
 @keyframes pulse {
@@ -114,20 +247,16 @@ a {
     font-weight: 700;
 }
 
-.timecode {
-    color: var(--grey);
-}
-
 .main-nav ul {
     display: flex;
     list-style: none;
-    gap: 35px;
+    gap: 32px;
 }
 
 .main-nav a {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.85);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 600;
     letter-spacing: 0.5px;
     transition: color 0.3s ease;
@@ -155,6 +284,67 @@ a {
     width: 100%;
 }
 
+.nav-cta-mobile {
+    display: none;
+}
+
+.btn-header {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid var(--grey-faint);
+    border-radius: 2px;
+    color: var(--off-white);
+    white-space: nowrap;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-header:hover {
+    background: var(--tally);
+    border-color: var(--tally);
+    color: #fff;
+}
+
+/* Hamburguesa — solo móvil */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    background: none;
+    border: 1px solid var(--grey-faint);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    margin: 0 auto;
+    background: var(--off-white);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
 /* ---------- HERO ---------- */
 
 .hero {
@@ -163,7 +353,9 @@ a {
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* Contenido a la izquierda: deja libre la mitad derecha del encuadre,
+       pensando en un video de fondo donde el sujeto no debe quedar tapado */
+    justify-content: flex-start;
 }
 
 .video-container {
@@ -256,9 +448,11 @@ a {
 .hero-content {
     position: relative;
     z-index: 10;
-    max-width: 850px;
-    text-align: center;
-    padding: 0 20px;
+    /* 60px = misma sangría que el logo del header y que las secciones,
+       así el bloque cae sobre el eje vertical del resto de la página */
+    max-width: 760px;
+    text-align: left;
+    padding: 0 60px;
     margin-top: -20px;
 }
 
@@ -286,38 +480,186 @@ a {
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.85);
     margin-bottom: 40px;
-    max-width: 640px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 560px;
 }
 
-.btn-services {
-    display: inline-block;
-    padding: 14px 36px;
-    border: 2px solid var(--off-white);
-    border-radius: 2px;
-    text-decoration: none;
+.hero-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* ---------- BOTÓN CTA ---------- */
+/* Botón original de Uiverse.io.
+   El chaflán (esquina superior izquierda e inferior derecha) rima con las
+   escuadras del visor del hero y entra en el rango de radios del resto del
+   sitio (0–8px); la píldora anterior era el objeto más redondo de la página.
+   El truco del hover: ::before pinta el degradado a pantalla completa y
+   ::after lo tapa con un relleno negro apenas más chico, dejando ver solo el
+   borde. Al pasar el mouse ese relleno se retrae hasta un punto en la esquina
+   inferior derecha, así que el degradado no "se enciende": se revela lo que
+   ya estaba debajo. */
+
+.cta-button {
+    /* Los tres acentos de la marca. El original traía naranja, que no existe
+       en esta paleta. */
+    --border-color: linear-gradient(-45deg, var(--tally), var(--neon-violet), var(--neon-cyan));
+    --border-width: 0.125em;
+    --curve-size: 0.5em;
+    --bg: var(--black);
     color: var(--off-white);
+    cursor: pointer;
+    position: relative;
+    /* Contiene los pseudo-elementos en z-index negativo sin depender del
+       apilado del resto de la página */
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    /* 16px arriba y abajo + 22px de la flecha = 54px, igual que el botón
+       anterior. Con el 0.5em del original quedaba en ~37px, por debajo del
+       mínimo táctil cómodo (44px). */
+    padding: 16px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border: 0;
+    text-decoration: none; /* son <a>, no <button> */
+    text-transform: uppercase;
+    clip-path: polygon(
+        /* sup. izq. */ 0% var(--curve-size),
+        var(--curve-size) 0,
+        /* sup. der. */ 100% 0,
+        100% calc(100% - var(--curve-size)),
+        /* inf. der. */ calc(100% - var(--curve-size)) 100%,
+        0 100%
+    );
+    transition: color 250ms;
+}
+
+.cta-button::after,
+.cta-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.cta-button::before {
+    background: var(--border-color);
+    background-size: 300% 300%;
+    animation: cta-button-bg 5s ease infinite;
+    z-index: -2;
+}
+
+@keyframes cta-button-bg {
+    0% {
+        background-position: 31% 0%;
+    }
+
+    50% {
+        background-position: 70% 100%;
+    }
+
+    100% {
+        background-position: 31% 0%;
+    }
+}
+
+.cta-button::after {
+    background: var(--bg);
+    z-index: -1;
+    clip-path: polygon(
+        var(--border-width) calc(var(--curve-size) + var(--border-width) * 0.5),
+        calc(var(--curve-size) + var(--border-width) * 0.5) var(--border-width),
+        calc(100% - var(--border-width)) var(--border-width),
+        calc(100% - var(--border-width)) calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)),
+        calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)) calc(100% - var(--border-width)),
+        var(--border-width) calc(100% - var(--border-width))
+    );
+    transition: clip-path 500ms;
+}
+
+/* :focus-visible en vez del :focus original: con :focus el botón quedaba
+   revelado después del clic, porque el ancla conserva el foco al saltar */
+.cta-button:where(:hover, :focus-visible)::after {
+    clip-path: polygon(
+        calc(100% - var(--border-width)) calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)),
+        calc(100% - var(--border-width)) var(--border-width),
+        calc(100% - var(--border-width)) var(--border-width),
+        calc(100% - var(--border-width)) calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)),
+        calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)) calc(100% - var(--border-width)),
+        calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)) calc(100% - var(--border-width))
+    );
+    transition: 200ms;
+}
+
+.cta-button:where(:hover, :focus-visible) {
+    color: #fff;
+}
+
+.cta-button .arrow {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    color: var(--tally);
+    transition: transform 0.3s ease-in-out, color 250ms;
+}
+
+.cta-button:where(:hover, :focus-visible) .arrow {
+    /* sobre el degradado revelado el rojo de marca se pierde */
+    color: #fff;
+    transform: translateX(6px);
+}
+
+/* Indicador de scroll */
+.scroll-cue {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(7vh + 18px);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--grey);
+    transition: color 0.3s ease;
+}
+
+.scroll-cue:hover {
+    color: var(--off-white);
+}
+
+.scroll-cue-text {
     font-family: var(--mono);
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 2px;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    font-size: 0.62rem;
+    letter-spacing: 3px;
 }
 
-.btn-services:hover {
-    background-color: var(--tally);
-    border-color: var(--tally);
-    color: #ffffff;
+.scroll-cue-line {
+    width: 1px;
+    height: 34px;
+    background: linear-gradient(to bottom, var(--grey-faint), var(--tally));
+    animation: cue-drop 2s ease-in-out infinite;
+    transform-origin: top center;
 }
 
-/* ---------- TRUST BAR / CARRUSEL ---------- */
+@keyframes cue-drop {
+    0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+    50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ---------- TRUST BAR / MARQUEE ---------- */
 
 .lower-section {
     position: static;
     width: 100%;
     background-color: var(--charcoal);
-    padding: 30px 20px;
+    padding: 34px 0 38px;
     z-index: 20;
     text-align: center;
     border-top: 1px solid var(--grey-faint);
@@ -328,30 +670,45 @@ a {
     font-size: 0.85rem;
     font-weight: 400;
     color: var(--grey);
-    margin-bottom: 18px;
+    margin-bottom: 26px;
     letter-spacing: 1px;
     text-transform: uppercase;
 }
 
-.link-carousel {
+/* Cinta infinita. El track se clona desde JS hasta cubrir el ancho y
+   la animación recorre exactamente el ancho de un grupo, así el salto
+   de vuelta al inicio cae sobre un fotograma idéntico y no se nota. */
+.marquee {
+    position: relative;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%);
+}
+
+.marquee-track {
     display: flex;
-    justify-content: center;
+    width: max-content;
+    animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
+    will-change: transform;
+}
+
+@keyframes marquee-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(var(--marquee-distance, -50%), 0, 0); }
+}
+
+.marquee-group {
+    display: flex;
     align-items: center;
-    gap: 100px;
-    margin-bottom: 15px;
+    gap: var(--marquee-gap, 90px);
+    padding-right: var(--marquee-gap, 90px);
+    flex-shrink: 0;
 }
 
-.nav-btn {
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 1.4rem;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.nav-btn:hover {
-    color: var(--tally);
+/* Pausa al pasar el mouse o al tabular dentro */
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+    animation-play-state: paused;
 }
 
 .social-link {
@@ -372,38 +729,11 @@ a {
     box-shadow: 0 0 24px -4px rgba(168, 85, 247, 0.55);
 }
 
-.carousel-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-}
-
-.dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.dot.active {
-    background-color: var(--tally);
-}
-
-.carousel-wrapper {
-    overflow: hidden;
-    width: auto;
-    margin: 0 auto;
-}
-
-.links-container {
-    display: flex;
-    gap: 105px;
-    transition: transform 0.4s ease;
-}
-
 /* ---------- SECTION HEADING (compartido) ---------- */
 
 .section-heading {
+    position: relative;
+    z-index: 1;
     text-align: center;
     max-width: 640px;
     margin: 0 auto 60px;
@@ -427,6 +757,14 @@ a {
     font-size: 2.6rem;
     font-weight: 400;
     letter-spacing: 1px;
+}
+
+.section-sub {
+    margin-top: 14px;
+    color: var(--grey);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 /* ---------- SERVICIOS — SHOT LIST ---------- */
@@ -466,23 +804,21 @@ a {
     pointer-events: none;
 }
 
-.section-heading {
-    position: relative;
-    z-index: 1;
-}
-
+/* Grid de 6 columnas para romper la simetría: 2 destacadas / 3 medianas /
+   1 ancha de cierre. Todas las tarjetas miden distinto a propósito. */
 .services-grid {
     position: relative;
     z-index: 1;
     max-width: 1160px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 26px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
 }
 
 .service-card {
     position: relative;
+    grid-column: span 2;
     padding: 42px 28px 32px;
     text-align: center;
     border: 1px solid rgba(168, 85, 247, 0.28);
@@ -505,6 +841,53 @@ a {
     transform: translateY(-6px);
 }
 
+/* Destacadas: más aire, texto a la izquierda, ícono más grande */
+.service-card--feature {
+    grid-column: span 3;
+    text-align: left;
+    padding: 46px 38px 38px;
+    background: linear-gradient(180deg, rgba(168, 85, 247, 0.09), transparent 65%);
+}
+
+.service-card--feature .service-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 0 24px;
+}
+
+.service-card--feature h3 {
+    font-size: 1.4rem;
+}
+
+.service-card--feature p {
+    font-size: 1rem;
+    max-width: 46ch;
+}
+
+/* Ancha de cierre: horizontal, ícono a un lado y texto al otro.
+   Solo cambia la forma — el color lo hereda de .service-card */
+.service-card--wide {
+    grid-column: span 6;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    text-align: left;
+    padding: 34px 38px;
+}
+
+.service-card--wide .service-icon {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.service-card-body {
+    flex: 1;
+}
+
+.service-card--wide p {
+    max-width: 62ch;
+}
+
 .shot-code {
     font-family: var(--mono);
     font-size: 0.85rem;
@@ -517,6 +900,10 @@ a {
     top: 16px;
     left: 20px;
     font-size: 0.7rem;
+}
+
+.service-card--wide .shot-code {
+    top: 12px;
 }
 
 .service-icon {
@@ -551,6 +938,25 @@ a {
     font-weight: 300;
     font-size: 0.92rem;
     line-height: 1.6;
+}
+
+.service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin-top: 20px;
+}
+
+.service-tags li {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--grey);
+    border: 1px solid var(--grey-faint);
+    border-radius: 100px;
+    padding: 4px 11px;
 }
 
 /* ---------- PERFORACIÓN DE ROLLO DE PELÍCULA ---------- */
@@ -671,6 +1077,141 @@ a {
     font-weight: 600;
 }
 
+/* ---------- NOSOTROS ---------- */
+
+.about {
+    position: relative;
+    padding: 120px 60px;
+    background: var(--black);
+    overflow: hidden;
+}
+
+.about::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: -160px;
+    width: 460px;
+    height: 460px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.14), transparent 70%);
+    pointer-events: none;
+}
+
+/* Split asimétrico: el texto pesa más que la ficha, a propósito */
+.about-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1160px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 70px;
+    align-items: start;
+}
+
+.about-copy h2 {
+    font-family: var(--display);
+    font-size: 2.6rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 22px;
+}
+
+.about-lead {
+    font-size: 1.15rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--off-white);
+    margin-bottom: 18px;
+}
+
+.about-copy p {
+    color: var(--grey);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 16px;
+}
+
+.about-copy .cta-button {
+    margin-top: 18px;
+}
+
+/* Ficha técnica: bloque monoespaciado tipo hoja de rodaje */
+.about-sheet {
+    border: 1px solid var(--grey-faint);
+    border-radius: 8px;
+    background: rgba(10, 10, 10, 0.55);
+    padding: 26px;
+}
+
+.sheet-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--grey);
+    padding-bottom: 16px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--grey-faint);
+}
+
+.sheet-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px dashed rgba(242, 240, 236, 0.09);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+}
+
+.sheet-row dt {
+    color: var(--grey);
+}
+
+.sheet-row dd {
+    color: var(--off-white);
+    text-align: right;
+}
+
+.sheet-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.stat {
+    text-align: center;
+    padding: 18px 10px;
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    border-radius: 6px;
+    background: linear-gradient(180deg, rgba(168, 85, 247, 0.07), transparent);
+}
+
+.stat-num {
+    display: block;
+    font-family: var(--display);
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--off-white);
+}
+
+.stat-label {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--grey);
+    line-height: 1.5;
+}
+
 /* ---------- CONTACTO ---------- */
 
 .contact {
@@ -685,11 +1226,14 @@ a {
     z-index: 0;
 }
 
+/* Todo esto tiene que quedar por encima de la retícula de fondo (.contact::before,
+   z-index 0). El botón quedaría arriba igual por orden de árbol, pero su z-index
+   es auto (usa isolation), así que mejor no depender de eso. */
 .contact-frame,
 .contact > .eyebrow,
 .contact > h2,
 .contact > p,
-.contact > a {
+.contact > .cta-button {
     position: relative;
     z-index: 1;
 }
@@ -709,8 +1253,9 @@ a {
 .contact p {
     color: var(--grey);
     font-weight: 300;
-    margin-bottom: 36px;
+    margin-bottom: 44px;
 }
+
 
 /* ---------- FOOTER ---------- */
 
@@ -734,26 +1279,340 @@ a {
     margin-top: 4px;
 }
 
+/* ---------- ACCESO RÁPIDO A REDES ---------- */
+/* Dock original de Uiverse.io. Renombrado a .social-dock-* porque .action y
+   .backdrop son nombres demasiado genéricos para vivir sueltos en el CSS
+   global de forma permanente.
+   El z-index del contenedor no es decorativo: el backdrop va en z-index -1 y
+   necesita un contexto de apilado que lo contenga. El .action-wrap original
+   era position:relative sin z-index (= sin contexto), así que acá el backdrop
+   se habría escapado a pintar detrás del fondo de la página. */
+
+.social-dock {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 80; /* debajo del header (100) y del panel móvil (90) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 9999px;
+    transition: opacity 0.3s ease;
+}
+
+/* Con el menú móvil abierto el dock queda flotando de fondo: mejor apagarlo */
+body.nav-open .social-dock {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.social-dock-backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.social-dock-backdrop::before {
+    content: "";
+    position: absolute;
+    height: 10.5rem;
+    width: 10.5rem;
+    border-radius: 9999px;
+    background: linear-gradient(144deg, #af40ff, #4f46e5);
+    animation: social-dock-rotate 1.5s linear infinite;
+}
+
+.social-dock-backdrop::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 9999px;
+    z-index: 1;
+}
+
+.social-dock-btn {
+    --sz-light-hover: 60px;
+    --rd-light-hover: 9999px;
+    /* negativo porque el dock está a la derecha: el resplandor sigue al icono,
+       que ahora se inclina hacia la izquierda (donde sale la etiqueta) */
+    --l-light-hover: -14px;
+    --cl-light: #0000;
+    --cr-light: #af40ff;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Ojo: esta declaración se resuelve como `all 300ms`, y así la queremos.
+       El deslizamiento de la etiqueta anima `left`, que un listado acotado
+       de propiedades dejaría fuera. Mismo caso en las de abajo. */
+    transition:
+        transform,
+        color,
+        background-color,
+        300ms ease;
+    height: 3.5rem;
+    width: 3.5rem;
+    border: none;
+    color: #444444;
+    background: none transparent;
+    text-decoration: none; /* eran <button>; acá son enlaces reales */
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 9999px;
+}
+
+.social-dock-icon {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 9;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    background-color: #f1f1f1;
+    transition:
+        transform,
+        color,
+        background,
+        300ms ease;
+}
+
+.social-dock-label {
+    --sz-light-hover: 100px;
+    --rd-light-hover: 6px;
+    --l-light-hover: 0px;
+    --cl-light: #fff;
+    --cr-light: #af40ff;
+    transition:
+        transform,
+        400ms ease;
+    opacity: 0;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    background-color: inherit;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    width: max-content;
+    height: 1.75rem;
+    padding: 8px 1px;
+    position: absolute;
+    /* Anclada por la derecha (el original iba por la izquierda): así crece
+       hacia adentro de la página en vez de salirse por el borde. */
+    right: 0;
+    z-index: -1;
+    border: 1px solid #ccc;
+}
+
+.social-dock-label::before {
+    content: attr(data-content);
+    transition:
+        transform,
+        300ms ease;
+    text-transform: capitalize;
+    font-size: medium;
+    font-weight: 600;
+    z-index: 1;
+    /* El texto se revela desde el lado del botón: antes entraba por la
+       izquierda, ahora el botón quedó a la derecha y entra por ahí */
+    transform: translateX(100%);
+    background-color: #fff;
+    border-radius: calc(var(--rd-light-hover) - 2px);
+    padding-inline: 4px;
+}
+
+.social-dock-btn::after,
+.social-dock-label::after {
+    content: "";
+    opacity: 0;
+    position: absolute;
+    border-radius: var(--rd-light-hover);
+    transition: all 50ms ease 200ms;
+    background: conic-gradient(
+        from 45deg at 50% 50%,
+        var(--cl-light),
+        var(--cr-light),
+        var(--cl-light),
+        var(--cl-light),
+        var(--cl-light),
+        var(--cr-light),
+        var(--cl-light),
+        var(--cl-light),
+        var(--cl-light)
+    );
+}
+
+.social-dock-btn:hover .social-dock-icon {
+    color: #000;
+    background-color: #fff;
+    /* -12px: el icono se inclina hacia la etiqueta, que ahora sale a la
+       izquierda. Con el +12px original se alejaría de ella. */
+    transform: scale(1.4) translate3d(-12px, 0px, 12px);
+}
+
+.social-dock-btn:hover::after,
+.social-dock-label::after {
+    height: var(--sz-light-hover);
+    width: var(--sz-light-hover);
+    left: var(--l-light-hover);
+    opacity: 1;
+    animation: social-dock-rotate 4s linear infinite;
+}
+
+@keyframes social-dock-rotate {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.social-dock-btn:hover .social-dock-label {
+    color: #000;
+    background-color: #fff;
+    opacity: 1;
+    width: max-content;
+    right: calc(100% + 24px);
+    z-index: 9;
+}
+
+.social-dock-btn:hover .social-dock-label::before {
+    transform: translateX(0px);
+}
+
 /* ---------- REGLAS RESPONSIVAS ---------- */
+
+@media (max-width: 1100px) {
+    .main-header { padding: 20px 30px; }
+    .main-header.scrolled { padding: 14px 30px; }
+    .main-nav ul { gap: 22px; }
+    .services, .portfolio, .about { padding: 100px 30px; }
+    /* la sangría del hero sigue a la del header */
+    .hero-content { padding: 0 30px; }
+}
+
+@media (max-width: 980px) {
+    /* Servicios: 2 columnas — las destacadas pasan a ancho completo */
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .service-card { grid-column: span 1; }
+    .service-card--feature { grid-column: span 2; }
+    .service-card--wide { grid-column: span 2; }
+
+    /* Con 3 medianas en 2 columnas la última queda huérfana y el hueco a su
+       lado se lee como un error: mejor que ocupe la fila entera */
+    .services-grid > .service-card:nth-child(5) { grid-column: span 2; }
+
+    /* Nosotros: la ficha baja debajo del texto */
+    .about-inner { grid-template-columns: 1fr; gap: 44px; }
+}
 
 @media (max-width: 900px) {
     .reel-grid { grid-template-columns: repeat(2, 1fr); }
-    .services-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-    .main-header { padding: 18px 20px; }
+    .main-header { padding: 14px 20px; }
+    .main-header.scrolled { padding: 12px 20px; }
     .logo { font-size: 1.4rem; }
-    .main-nav { display: none; }
+    .btn-header { display: none; }
+    .nav-toggle { display: flex; }
+
+    /* Panel deslizante en móvil */
+    .main-nav {
+        position: fixed;
+        inset: 0 0 0 auto;
+        width: min(300px, 82vw);
+        background: rgba(10, 10, 10, 0.97);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-left: 1px solid var(--grey-faint);
+        padding: 100px 32px 40px;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 90;
+    }
+
+    .main-nav.open {
+        transform: translateX(0);
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 26px;
+    }
+
+    .main-nav a {
+        font-size: 1.05rem;
+    }
+
+    .nav-cta-mobile {
+        margin-top: 10px;
+        padding-top: 26px;
+        border-top: 1px solid var(--grey-faint);
+        width: 100%;
+        display: block;
+    }
+
+    .nav-cta-mobile a {
+        color: var(--tally);
+    }
+
     .hero-content h1 { font-size: 2.6rem; }
     .hero-content p { font-size: 1rem; }
+    .hero-content { padding: 0 24px; }
+    /* apilados y alineados a la izquierda; 12px porque las píldoras
+       necesitan más aire entre sí que los botones cuadrados de antes */
+    .hero-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
+    /* 14px + 22px de la flecha = 50px: más chico que en desktop pero
+       todavía por encima del mínimo táctil de 44px */
+    .cta-button { font-size: 15px; padding: 14px 24px; }
     .viewfinder-frame { inset: 70px 16px; }
     .letterbox-top, .letterbox-bottom { height: 4vh; }
-    .services, .portfolio { padding: 80px 24px; }
-    .services-grid { grid-template-columns: 1fr; }
+    .scroll-cue { display: none; }
+
+    .services, .portfolio, .about { padding: 80px 24px; }
+
+    .services-grid { grid-template-columns: 1fr; gap: 16px; }
+    .service-card,
+    .service-card--feature,
+    .service-card--wide { grid-column: span 1; }
+
+    /* La ancha deja de ser horizontal cuando no hay ancho */
+    .service-card--wide {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 42px 28px 32px;
+    }
+
     .reel-grid { grid-template-columns: 1fr; }
-    .link-carousel { gap: 40px; }
+
+    .about-copy h2, .section-heading h2 { font-size: 2.1rem; }
+    .contact h2 { font-size: 2.1rem; }
+    .contact { padding: 100px 20px; }
+    .contact-frame { inset: 16px; }
+
+    .marquee-group { gap: 48px; padding-right: 48px; }
     .social-link { width: 90px; height: 90px; }
+
+    /* Más pegado al borde, pero sin achicar los botones: 56px es el área
+       táctil mínima cómoda y bajarla los volvería difíciles de acertar */
+    .social-dock { right: 16px; bottom: 16px; }
 }
 
 /* ---------- ACCESIBILIDAD: REDUCED MOTION ---------- */
@@ -769,5 +1628,17 @@ a {
     .service-card, .reel-card {
         opacity: 1;
         transform: none;
+    }
+
+    /* Sin animación la cinta no se mueve sola: se vuelve deslizable a mano */
+    .marquee {
+        overflow-x: auto;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+
+    .marquee-track {
+        animation: none !important;
+        transform: none !important;
     }
 }

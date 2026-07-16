@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESCOFILM — Strategy and Epic Content</title>
+    <meta name="description" content="Productora audiovisual en Maracaibo. Conceptualizamos, grabamos y editamos contenido cinematográfico, gestionamos redes sociales, diseñamos marcas y desarrollamos páginas web.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,25 +12,71 @@
 </head>
 <body>
 
+    <!-- PRELOADER — loader de Uiverse.io por fanishah.
+         Arranca oculto: solo aparece si la carga se alarga (ver script.js).
+         Los ids van con prefijo escofilm-loader-* porque los originales
+         (gegga, gradient) son genéricos y compartirían el espacio de ids
+         de toda la página. -->
+    <div class="preloader" id="preloader" role="status" aria-label="Cargando">
+        <div class="loader-spinner">
+            <svg class="gegga" aria-hidden="true" focusable="false">
+                <defs>
+                    <filter id="escofilm-loader-goo">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur"></feGaussianBlur>
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 20 -10" result="inreGegga"></feColorMatrix>
+                        <feComposite in="SourceGraphic" in2="inreGegga" operator="atop"></feComposite>
+                    </filter>
+                </defs>
+            </svg>
+
+            <svg class="snurra" width="200" height="200" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+                <defs>
+                    <linearGradient id="escofilm-loader-stops">
+                        <stop class="stopp1" offset="0"></stop>
+                        <stop class="stopp2" offset="1"></stop>
+                    </linearGradient>
+                    <linearGradient y2="160" x2="160" y1="40" x1="40" gradientUnits="userSpaceOnUse" id="escofilm-loader-gradient" href="#escofilm-loader-stops" xlink:href="#escofilm-loader-stops"></linearGradient>
+                </defs>
+                <path class="halvan" d="m 164,100 c 0,-35.346224 -28.65378,-64 -64,-64 -35.346224,0 -64,28.653776 -64,64 0,35.34622 28.653776,64 64,64 35.34622,0 64,-26.21502 64,-64 0,-37.784981 -26.92058,-64 -64,-64 -37.079421,0 -65.267479,26.922736 -64,64 1.267479,37.07726 26.703171,65.05317 64,64 37.29683,-1.05317 64,-64 64,-64"></path>
+                <circle class="strecken" cx="100" cy="100" r="64"></circle>
+            </svg>
+
+            <svg class="skugga" width="200" height="200" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+                <path class="halvan" d="m 164,100 c 0,-35.346224 -28.65378,-64 -64,-64 -35.346224,0 -64,28.653776 -64,64 0,35.34622 28.653776,64 64,64 35.34622,0 64,-26.21502 64,-64 0,-37.784981 -26.92058,-64 -64,-64 -37.079421,0 -65.267479,26.922736 -64,64 1.267479,37.07726 26.703171,65.05317 64,64 37.29683,-1.05317 64,-64 64,-64"></path>
+                <circle class="strecken" cx="100" cy="100" r="64"></circle>
+            </svg>
+        </div>
+    </div>
+
+    <a class="skip-link" href="#inicio">Saltar al contenido</a>
+
     <!-- HEADER -->
     <header class="main-header">
-        <div class="logo">ESCOFILM</div>
+        <a href="#inicio" class="logo">ESCOFILM</a>
 
-        <nav class="main-nav">
+        <nav class="main-nav" id="mainNav">
             <ul>
                 <li><a href="#inicio" class="active">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#portafolio">Portafolio</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#contacto">Contáctanos</a></li>
+                <li class="nav-cta-mobile"><a href="#contacto">Contáctanos</a></li>
             </ul>
         </nav>
+
+        <a href="#contacto" class="btn-header">Contáctanos</a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
 
     <!-- HERO -->
     <main class="hero" id="inicio">
         <div class="video-container">
-            <img src="src/OIP (1).jpg" alt="Fondo de ciudad retro-futurista" class="hero-image">
+            <img src="src/OIP (1).jpg" alt="" class="hero-image">
             <div class="overlay"></div>
             <div class="grain"></div>
             <div class="letterbox-top" aria-hidden="true"></div>
@@ -54,34 +101,47 @@
             <p>
                 Conceptualizamos, grabamos y editamos contenido cinematográfico, mientras gestionamos tus redes sociales, diseñamos tu marca, optimizamos tus anuncios y desarrollamos tu página web.
             </p>
-            <a href="#servicios" class="btn-services">EXPLORAR SERVICIOS</a>
+            <div class="hero-actions">
+                <a href="#servicios" class="cta-button">
+                    <span>EXPLORAR SERVICIOS</span>
+                    <svg fill="none" viewBox="0 0 24 24" class="arrow" aria-hidden="true" focusable="false">
+                        <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M5 12h14M13 6l6 6-6 6"></path>
+                    </svg>
+                </a>
+                <a href="#portafolio" class="cta-button">
+                    <span>VER PORTAFOLIO</span>
+                    <svg fill="none" viewBox="0 0 24 24" class="arrow" aria-hidden="true" focusable="false">
+                        <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M5 12h14M13 6l6 6-6 6"></path>
+                    </svg>
+                </a>
+            </div>
         </div>
+
+        <a href="#servicios" class="scroll-cue" aria-label="Bajar a servicios">
+            <span class="scroll-cue-text">SCROLL</span>
+            <span class="scroll-cue-line" aria-hidden="true"></span>
+        </a>
     </main>
 
     <div class="film-perf" aria-hidden="true"></div>
 
-    <!-- TRUST BAR / CARRUSEL DE MARCAS -->
-    <section class="lower-section">
+    <!-- TRUST BAR / MARQUEE DE MARCAS -->
+    <section class="lower-section" aria-label="Marcas que han confiado en nosotros">
         <div class="client-count">+10 marcas han confiado en nosotros</div>
 
-        <div class="link-carousel">
-            <button class="nav-btn prev" aria-label="Marca anterior">&lt;</button>
-
-            <div class="carousel-wrapper">
-                <div class="links-container" id="linksTrack">
-                    <img src="src/dystopia.png" class="social-link" title="Dystopia Bowling & Lounge">
-                    <img src="src/confremarca.png" class="social-link" title="Grupo Confremarca">
-                    <img src="src/btk.png" class="social-link" title="BTK">
-                    <img src="src/sole.png" class="social-link" title="Sole Visione">
-                    <img src="src/aircanet.png" class="social-link" title="Aircanet">
-                    <img src="src/credimara.png" class="social-link" title="Credimara">
+        <!-- El track se duplica desde JS hasta llenar el ancho; el HTML solo trae el set real -->
+        <div class="marquee" id="brandMarquee">
+            <div class="marquee-track" id="marqueeTrack">
+                <div class="marquee-group">
+                    <img src="src/dystopia.png" class="social-link" alt="Dystopia Bowling &amp; Lounge" title="Dystopia Bowling & Lounge">
+                    <img src="src/confremarca.png" class="social-link" alt="Grupo Confremarca" title="Grupo Confremarca">
+                    <img src="src/btk.png" class="social-link" alt="BTK" title="BTK">
+                    <img src="src/sole.png" class="social-link" alt="Sole Visione" title="Sole Visione">
+                    <img src="src/aircanet.png" class="social-link" alt="Aircanet" title="Aircanet">
+                    <img src="src/credimara.png" class="social-link" alt="Credimara" title="Credimara">
                 </div>
             </div>
-
-            <button class="nav-btn next" aria-label="Siguiente marca">&gt;</button>
         </div>
-
-        <div class="carousel-dots"></div>
     </section>
 
     <!-- SERVICIOS -->
@@ -89,31 +149,42 @@
         <div class="section-heading">
             <span class="slate-tag">CLAQUETA / SHOT LIST</span>
             <h2>Lo que rodamos por ti</h2>
+            <p class="section-sub">Seis líneas de trabajo que funcionan sueltas o como una sola producción de punta a punta.</p>
         </div>
 
         <div class="services-grid">
-            <article class="service-card">
+            <article class="service-card service-card--feature">
                 <span class="shot-code">ESC. 01</span>
                 <div class="service-icon">
-                    <img src="src/servicios/camera-movie.svg" alt="Producciones audiovisuales">
+                    <img src="src/servicios/camera-movie.svg" alt="">
                 </div>
                 <h3>Producciones Audiovisuales</h3>
                 <p>Videos y fotografía con equipos profesionales y estética cinematográfica. Creamos el contenido visual que define tu marca.</p>
+                <ul class="service-tags">
+                    <li>Video</li>
+                    <li>Fotografía</li>
+                    <li>Dirección</li>
+                </ul>
             </article>
 
-            <article class="service-card">
+            <article class="service-card service-card--feature">
                 <span class="shot-code">ESC. 02</span>
                 <div class="service-icon">
-                    <img src="src/servicios/mobile-notch.svg" alt="Gestión de redes sociales">
+                    <img src="src/servicios/mobile-notch.svg" alt="">
                 </div>
                 <h3>Gestión de Redes Sociales</h3>
                 <p>Dirección creativa, community manager y project manager. Manejamos tu comunidad con estrategia y constancia.</p>
+                <ul class="service-tags">
+                    <li>Dirección creativa</li>
+                    <li>Community</li>
+                    <li>Project management</li>
+                </ul>
             </article>
 
             <article class="service-card">
                 <span class="shot-code">ESC. 03</span>
                 <div class="service-icon">
-                    <img src="src/servicios/bulb.svg" alt="Diseño gráfico y branding">
+                    <img src="src/servicios/bulb.svg" alt="">
                 </div>
                 <h3>Diseño Gráfico &amp; Branding</h3>
                 <p>Identidad gráfica, inteligencia artificial y asesorías a medida para transformar y elevar por completo el aspecto de tu feed o marca.</p>
@@ -122,7 +193,7 @@
             <article class="service-card">
                 <span class="shot-code">ESC. 04</span>
                 <div class="service-icon">
-                    <img src="src/servicios/megafono.svg" alt="Campañas publicitarias">
+                    <img src="src/servicios/megafono.svg" alt="">
                 </div>
                 <h3>Campañas Publicitarias</h3>
                 <p>Estrategias de alto impacto y estilo original diseñadas para captar atención y diferenciarte de la competencia.</p>
@@ -131,28 +202,38 @@
             <article class="service-card">
                 <span class="shot-code">ESC. 05</span>
                 <div class="service-icon">
-                    <img src="src/servicios/instagram-circle.svg" alt="ADS Instagram y Facebook">
+                    <img src="src/servicios/instagram-circle.svg" alt="">
                 </div>
                 <h3>ADS Instagram &amp; Facebook</h3>
                 <p>Gestión y optimización de publicidad paga. Inversión inteligente para multiplicar el alcance y las ventas de tu negocio.</p>
             </article>
 
-            <article class="service-card">
+            <article class="service-card service-card--wide">
                 <span class="shot-code">ESC. 06</span>
                 <div class="service-icon">
-                    <img src="src/servicios/browser.svg" alt="Diseño web">
+                    <img src="src/servicios/browser.svg" alt="">
                 </div>
-                <h3>Diseño Web</h3>
-                <p>Desarrollo completo y a medida. Diseñamos la plataforma digital interactiva que tu negocio necesita para vender en automático.</p>
+                <div class="service-card-body">
+                    <h3>Diseño Web</h3>
+                    <p>Desarrollo completo y a medida. Diseñamos la plataforma digital interactiva que tu negocio necesita para vender en automático.</p>
+                    <ul class="service-tags">
+                        <li>Desarrollo</li>
+                        <li>UX</li>
+                        <li>Automatización</li>
+                    </ul>
+                </div>
             </article>
         </div>
     </section>
+
+    <div class="film-perf" aria-hidden="true"></div>
 
     <!-- PORTAFOLIO  -->
     <section class="portfolio" id="portafolio">
         <div class="section-heading">
             <span class="slate-tag">DAILIES / SALA DE PROYECCIÓN</span>
             <h2>Tomas que ya rodamos</h2>
+            <p class="section-sub">Marcas que confiaron el lente a nuestro equipo.</p>
         </div>
 
         <div class="filmstrip">
@@ -160,7 +241,7 @@
 
             <div class="reel-grid">
                 <article class="reel-card">
-                    <img src="src/dystopia.png" alt="Dystopia Bowling & Lounge">
+                    <img src="src/dystopia.png" alt="Dystopia Bowling &amp; Lounge">
                     <div class="reel-overlay">
                         <span class="reel-take">TOMA 01</span>
                         <span class="reel-name">Dystopia — Bowling &amp; Lounge</span>
@@ -209,6 +290,73 @@
 
     <div class="film-perf" aria-hidden="true"></div>
 
+    <!-- NOSOTROS -->
+    <section class="about" id="nosotros">
+        <div class="about-inner">
+            <div class="about-copy">
+                <span class="slate-tag">BEHIND THE SCENES</span>
+                <h2>Somos el equipo detrás del lente</h2>
+                <p class="about-lead">
+                    Escofilm nace en Maracaibo con una idea simple: el contenido de una marca merece tratarse como cine, no como relleno de feed.
+                </p>
+                <p>
+                    Trabajamos la estrategia y la producción en la misma mesa. Eso significa que quien piensa la campaña es el mismo equipo que la graba, la edita y la publica — sin teléfonos descompuestos entre agencia, productora y community manager.
+                </p>
+                <p>
+                    Desde Maracaibo rodamos para marcas locales e internacionales, con equipos propios y una estética que se reconoce sin necesidad de logo.
+                </p>
+                <a href="#contacto" class="cta-button">
+                    <span>TRABAJEMOS JUNTOS</span>
+                    <svg fill="none" viewBox="0 0 24 24" class="arrow" aria-hidden="true" focusable="false">
+                        <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M5 12h14M13 6l6 6-6 6"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <aside class="about-sheet" aria-label="Ficha técnica">
+                <div class="sheet-head">
+                    <span class="rec-dot" aria-hidden="true"></span>
+                    <span>FICHA TÉCNICA</span>
+                </div>
+                <dl class="sheet-list">
+                    <div class="sheet-row">
+                        <dt>Estudio</dt>
+                        <dd>ESCOFILM</dd>
+                    </div>
+                    <div class="sheet-row">
+                        <dt>Base</dt>
+                        <dd>Maracaibo, VE</dd>
+                    </div>
+                    <div class="sheet-row">
+                        <dt>Marcas</dt>
+                        <dd>+10</dd>
+                    </div>
+                    <div class="sheet-row">
+                        <dt>Servicios</dt>
+                        <dd>06 líneas</dd>
+                    </div>
+                    <div class="sheet-row">
+                        <dt>Enfoque</dt>
+                        <dd>Cine + estrategia</dd>
+                    </div>
+                </dl>
+
+                <div class="sheet-stats">
+                    <div class="stat">
+                        <span class="stat-num">+10</span>
+                        <span class="stat-label">marcas<br>atendidas</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num">06</span>
+                        <span class="stat-label">líneas de<br>servicio</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <div class="film-perf" aria-hidden="true"></div>
+
     <!-- CONTACTO -->
     <section class="contact" id="contacto">
         <div class="viewfinder-frame contact-frame" aria-hidden="true">
@@ -217,17 +365,51 @@
             <span class="corner bl"></span>
             <span class="corner br"></span>
         </div>
+
         <span class="eyebrow">— corte final —</span>
         <h2>¿Listos para rodar tu próxima campaña?</h2>
         <p>Cuéntanos qué necesitas y armamos el plan de rodaje.</p>
-        <a href="#" class="btn-services">ESCRÍBENOS</a>
+
+        <!-- TODO: reemplazar por el destino real de Escofilm antes de publicar -->
+        <a href="https://wa.me/58XXXXXXXXXX" class="cta-button" target="_blank" rel="noopener">
+            <span>CONTÁCTANOS</span>
+            <svg fill="none" viewBox="0 0 24 24" class="arrow" aria-hidden="true" focusable="false">
+                <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M5 12h14M13 6l6 6-6 6"></path>
+            </svg>
+        </a>
     </section>
 
     <footer class="main-footer">
         <div class="logo">ESCOFILM</div>
         <p>Maracaibo, Venezuela</p>
-        <p>© 2026 Escofilm. Todos los derechos reservados.</p>
+        <p>© <span id="year">2026</span> Escofilm. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- ACCESO RÁPIDO A REDES — dock flotante, abajo a la derecha.
+         Componente original de Uiverse.io; los iconos son de Tabler, el mismo
+         set de línea que traía el original. El componente venía pensado para
+         desplegarse hacia la derecha: está espejado (ver styles.css).
+         TODO: reemplazar los dos destinos por los reales de Escofilm. -->
+    <nav class="social-dock" aria-label="Redes sociales">
+        <a class="social-dock-btn" href="https://wa.me/58XXXXXXXXXX" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+            <svg class="social-dock-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" aria-hidden="true" focusable="false">
+                <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
+                <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
+            </svg>
+            <span class="social-dock-label" data-content="WhatsApp"></span>
+        </a>
+
+        <a class="social-dock-btn" href="https://instagram.com/USUARIO" target="_blank" rel="noopener" aria-label="Síguenos en Instagram">
+            <svg class="social-dock-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" aria-hidden="true" focusable="false">
+                <path d="M4 8a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z"></path>
+                <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                <path d="M16.5 7.5l0 .01"></path>
+            </svg>
+            <span class="social-dock-label" data-content="Instagram"></span>
+        </a>
+
+        <div class="social-dock-backdrop" aria-hidden="true"></div>
+    </nav>
 
     <script src="script.js"></script>
 </body>
