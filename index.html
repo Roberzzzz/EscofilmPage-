@@ -12,11 +12,9 @@
 </head>
 <body>
 
-    <!-- PRELOADER — loader de Uiverse.io por fanishah.
-         Arranca oculto: solo aparece si la carga se alarga (ver script.js).
-         Los ids van con prefijo escofilm-loader-* porque los originales
-         (gegga, gradient) son genéricos y compartirían el espacio de ids
-         de toda la página. -->
+    <!-- PRELOADER 
+         solo aparece si la carga se alarga (ver script.js).
+    -->
     <div class="preloader" id="preloader" role="status" aria-label="Cargando">
         <div class="loader-spinner">
             <svg class="gegga" aria-hidden="true" focusable="false">
@@ -129,7 +127,6 @@
     <section class="lower-section" aria-label="Marcas que han confiado en nosotros">
         <div class="client-count">+10 marcas han confiado en nosotros</div>
 
-        <!-- El track se duplica desde JS hasta llenar el ancho; el HTML solo trae el set real -->
         <div class="marquee" id="brandMarquee">
             <div class="marquee-track" id="marqueeTrack">
                 <div class="marquee-group">
@@ -153,6 +150,8 @@
         </div>
 
         <div class="services-grid">
+            <span class="shot-act-label">ROLLO A — LA IDEA Y LA CÁMARA</span>
+
             <article class="service-card service-card--feature">
                 <span class="shot-code">ESC. 01</span>
                 <div class="service-icon">
@@ -181,14 +180,20 @@
                 </ul>
             </article>
 
-            <article class="service-card">
+            <article class="service-card service-card--feature service-card--last-in-act">
                 <span class="shot-code">ESC. 03</span>
                 <div class="service-icon">
                     <img src="src/servicios/bulb.svg" alt="">
                 </div>
                 <h3>Diseño Gráfico &amp; Branding</h3>
                 <p>Identidad gráfica, inteligencia artificial y asesorías a medida para transformar y elevar por completo el aspecto de tu feed o marca.</p>
+                <ul class="service-tags">
+                    <li>Identidad</li>
+                    <li>Asesoría</li>
+                </ul>
             </article>
+
+            <span class="shot-act-label">ROLLO B — DÓNDE SE VE Y CÓMO SE VENDE</span>
 
             <article class="service-card">
                 <span class="shot-code">ESC. 04</span>
@@ -208,20 +213,13 @@
                 <p>Gestión y optimización de publicidad paga. Inversión inteligente para multiplicar el alcance y las ventas de tu negocio.</p>
             </article>
 
-            <article class="service-card service-card--wide">
+            <article class="service-card service-card--last-in-act">
                 <span class="shot-code">ESC. 06</span>
                 <div class="service-icon">
                     <img src="src/servicios/browser.svg" alt="">
                 </div>
-                <div class="service-card-body">
-                    <h3>Diseño Web</h3>
-                    <p>Desarrollo completo y a medida. Diseñamos la plataforma digital interactiva que tu negocio necesita para vender en automático.</p>
-                    <ul class="service-tags">
-                        <li>Desarrollo</li>
-                        <li>UX</li>
-                        <li>Automatización</li>
-                    </ul>
-                </div>
+                <h3>Diseño Web</h3>
+                <p>Desarrollo completo y a medida. Diseñamos la plataforma digital interactiva que tu negocio necesita para vender en automático.</p>
             </article>
         </div>
     </section>
@@ -343,11 +341,11 @@
 
                 <div class="sheet-stats">
                     <div class="stat">
-                        <span class="stat-num">+10</span>
+                        <span class="stat-num" data-count-to="10" data-prefix="+">+10</span>
                         <span class="stat-label">marcas<br>atendidas</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-num">06</span>
+                        <span class="stat-num" data-count-to="6" data-pad="2">06</span>
                         <span class="stat-label">líneas de<br>servicio</span>
                     </div>
                 </div>
@@ -370,7 +368,7 @@
         <h2>¿Listos para rodar tu próxima campaña?</h2>
         <p>Cuéntanos qué necesitas y armamos el plan de rodaje.</p>
 
-        <!-- TODO: reemplazar por el destino real de Escofilm antes de publicar -->
+        <!-- reemplazar por el destino real de escofilm antes de publicar ;v -->
         <a href="https://wa.me/58XXXXXXXXXX" class="cta-button" target="_blank" rel="noopener">
             <span>CONTÁCTANOS</span>
             <svg fill="none" viewBox="0 0 24 24" class="arrow" aria-hidden="true" focusable="false">
@@ -385,11 +383,8 @@
         <p>© <span id="year">2026</span> Escofilm. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- ACCESO RÁPIDO A REDES — dock flotante, abajo a la derecha.
-         Componente original de Uiverse.io; los iconos son de Tabler, el mismo
-         set de línea que traía el original. El componente venía pensado para
-         desplegarse hacia la derecha: está espejado (ver styles.css).
-         TODO: reemplazar los dos destinos por los reales de Escofilm. -->
+    <!-- dock flotante.
+         reemplazar los dos destinos por los reales de escofilm. -->
     <nav class="social-dock" aria-label="Redes sociales">
         <a class="social-dock-btn" href="https://wa.me/58XXXXXXXXXX" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
             <svg class="social-dock-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" aria-hidden="true" focusable="false">
@@ -414,7 +409,6 @@
     <script src="script.js"></script>
 </body>
 </html>
-
 
 
 
