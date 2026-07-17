@@ -353,9 +353,7 @@ main[id] {
     height: 100vh;
     display: flex;
     align-items: center;
-    /* Contenido a la izquierda: deja libre la mitad derecha del encuadre,
-       pensando en un video de fondo donde el sujeto no debe quedar tapado */
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .video-container {
@@ -448,12 +446,10 @@ main[id] {
 .hero-content {
     position: relative;
     z-index: 10;
-    /* 60px = misma sangría que el logo del header y que las secciones,
-       así el bloque cae sobre el eje vertical del resto de la página */
     max-width: 760px;
-    text-align: left;
+    text-align: center;
     padding: 0 60px;
-    margin-top: -20px;
+    margin: -20px auto 0;
 }
 
 .eyebrow {
@@ -479,32 +475,20 @@ main[id] {
     font-weight: 300;
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.85);
-    margin-bottom: 40px;
+    margin: 0 auto 40px;
     max-width: 560px;
 }
 
 .hero-actions {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 16px;
     flex-wrap: wrap;
 }
 
-/* ---------- BOTÓN CTA ---------- */
-/* Botón original de Uiverse.io.
-   El chaflán (esquina superior izquierda e inferior derecha) rima con las
-   escuadras del visor del hero y entra en el rango de radios del resto del
-   sitio (0–8px); la píldora anterior era el objeto más redondo de la página.
-   El truco del hover: ::before pinta el degradado a pantalla completa y
-   ::after lo tapa con un relleno negro apenas más chico, dejando ver solo el
-   borde. Al pasar el mouse ese relleno se retrae hasta un punto en la esquina
-   inferior derecha, así que el degradado no "se enciende": se revela lo que
-   ya estaba debajo. */
 
 .cta-button {
-    /* Los tres acentos de la marca. El original traía naranja, que no existe
-       en esta paleta. */
     --border-color: linear-gradient(-45deg, var(--tally), var(--neon-violet), var(--neon-cyan));
     --border-width: 0.125em;
     --curve-size: 0.5em;
@@ -512,22 +496,17 @@ main[id] {
     color: var(--off-white);
     cursor: pointer;
     position: relative;
-    /* Contiene los pseudo-elementos en z-index negativo sin depender del
-       apilado del resto de la página */
     isolation: isolate;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    /* 16px arriba y abajo + 22px de la flecha = 54px, igual que el botón
-       anterior. Con el 0.5em del original quedaba en ~37px, por debajo del
-       mínimo táctil cómodo (44px). */
     padding: 16px 30px;
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 1px;
     border: 0;
-    text-decoration: none; /* son <a>, no <button> */
+    text-decoration: none; 
     text-transform: uppercase;
     clip-path: polygon(
         /* sup. izq. */ 0% var(--curve-size),
@@ -582,8 +561,6 @@ main[id] {
     transition: clip-path 500ms;
 }
 
-/* :focus-visible en vez del :focus original: con :focus el botón quedaba
-   revelado después del clic, porque el ancla conserva el foco al saltar */
 .cta-button:where(:hover, :focus-visible)::after {
     clip-path: polygon(
         calc(100% - var(--border-width)) calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)),
@@ -673,14 +650,29 @@ main[id] {
     margin-bottom: 26px;
     letter-spacing: 1px;
     text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 14px;
 }
 
-/* Cinta infinita. El track se clona desde JS hasta cubrir el ancho y
-   la animación recorre exactamente el ancho de un grupo, así el salto
-   de vuelta al inicio cae sobre un fotograma idéntico y no se nota. */
+/* Subrayado de client-count */
+.client-count::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--tally);
+}
+
 .marquee {
     position: relative;
     overflow: hidden;
+    padding: 28px 0;
+    margin: -28px 0;
+    display: flex;
+    align-items: center;
     -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%);
     mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%);
 }
@@ -705,7 +697,6 @@ main[id] {
     flex-shrink: 0;
 }
 
-/* Pausa al pasar el mouse o al tabular dentro */
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track {
     animation-play-state: paused;
@@ -775,8 +766,6 @@ main[id] {
     background: var(--black);
     overflow: hidden;
 }
-
-/* Grid cyberpunk de fondo DEL eco de la carretera del hero, textura sutil */
 .services::before,
 .portfolio::before,
 .contact::before {
@@ -792,7 +781,6 @@ main[id] {
     pointer-events: none;
 }
 
-/* Glows ambientales en las esquinas PQ le dan profundidad al negro plano */
 .services::after {
     content: '';
     position: absolute;
@@ -804,21 +792,42 @@ main[id] {
     pointer-events: none;
 }
 
-/* Grid de 6 columnas para romper la simetría: 2 destacadas / 3 medianas /
-   1 ancha de cierre. Todas las tarjetas miden distinto a propósito. */
 .services-grid {
     position: relative;
     z-index: 1;
     max-width: 1160px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 24px;
+}
+
+.shot-act-label {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin: 8px 0 2px;
+}
+
+.shot-act-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--grey-faint);
+}
+
+.shot-act-label:first-child {
+    margin-top: 0;
 }
 
 .service-card {
     position: relative;
-    grid-column: span 2;
     padding: 42px 28px 32px;
     text-align: center;
     border: 1px solid rgba(168, 85, 247, 0.28);
@@ -841,9 +850,8 @@ main[id] {
     transform: translateY(-6px);
 }
 
-/* Destacadas: más aire, texto a la izquierda, ícono más grande */
+/* Tarjetas del Rollo A */
 .service-card--feature {
-    grid-column: span 3;
     text-align: left;
     padding: 46px 38px 38px;
     background: linear-gradient(180deg, rgba(168, 85, 247, 0.09), transparent 65%);
@@ -852,7 +860,7 @@ main[id] {
 .service-card--feature .service-icon {
     width: 72px;
     height: 72px;
-    margin: 0 0 24px;
+    margin: 0 auto 24px;
 }
 
 .service-card--feature h3 {
@@ -861,31 +869,6 @@ main[id] {
 
 .service-card--feature p {
     font-size: 1rem;
-    max-width: 46ch;
-}
-
-/* Ancha de cierre: horizontal, ícono a un lado y texto al otro.
-   Solo cambia la forma — el color lo hereda de .service-card */
-.service-card--wide {
-    grid-column: span 6;
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    text-align: left;
-    padding: 34px 38px;
-}
-
-.service-card--wide .service-icon {
-    margin: 0;
-    flex-shrink: 0;
-}
-
-.service-card-body {
-    flex: 1;
-}
-
-.service-card--wide p {
-    max-width: 62ch;
 }
 
 .shot-code {
@@ -902,10 +885,6 @@ main[id] {
     font-size: 0.7rem;
 }
 
-.service-card--wide .shot-code {
-    top: 12px;
-}
-
 .service-icon {
     width: 60px;
     height: 60px;
@@ -916,13 +895,11 @@ main[id] {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* negro original del SVG = blanco cálido, vía filtro */
     filter: invert(1) brightness(0.95);
     transition: filter 0.35s ease;
 }
 
 .service-card:hover .service-icon img {
-    /* blanco = tinte cian neón Y resplandor, al hacer hover */
     filter: invert(70%) sepia(59%) saturate(1919%) hue-rotate(155deg) brightness(101%) contrast(101%)
             drop-shadow(0 0 8px rgba(34, 211, 238, 0.7));
 }
@@ -959,10 +936,6 @@ main[id] {
     padding: 4px 11px;
 }
 
-/* ---------- PERFORACIÓN DE ROLLO DE PELÍCULA ---------- */
-/* Divisor reutilizado entre secciones: simula el borde perforado de un
-   negativo de 35mm. Es el motivo estructural que amarra todo el sitio
-   al concepto de rodaje. */
 
 .film-perf {
     height: 22px;
@@ -1097,7 +1070,6 @@ main[id] {
     pointer-events: none;
 }
 
-/* Split asimétrico: el texto pesa más que la ficha, a propósito */
 .about-inner {
     position: relative;
     z-index: 1;
@@ -1137,7 +1109,6 @@ main[id] {
     margin-top: 18px;
 }
 
-/* Ficha técnica: bloque monoespaciado tipo hoja de rodaje */
 .about-sheet {
     border: 1px solid var(--grey-faint);
     border-radius: 8px;
@@ -1226,9 +1197,6 @@ main[id] {
     z-index: 0;
 }
 
-/* Todo esto tiene que quedar por encima de la retícula de fondo (.contact::before,
-   z-index 0). El botón quedaría arriba igual por orden de árbol, pero su z-index
-   es auto (usa isolation), así que mejor no depender de eso. */
 .contact-frame,
 .contact > .eyebrow,
 .contact > h2,
@@ -1279,20 +1247,11 @@ main[id] {
     margin-top: 4px;
 }
 
-/* ---------- ACCESO RÁPIDO A REDES ---------- */
-/* Dock original de Uiverse.io. Renombrado a .social-dock-* porque .action y
-   .backdrop son nombres demasiado genéricos para vivir sueltos en el CSS
-   global de forma permanente.
-   El z-index del contenedor no es decorativo: el backdrop va en z-index -1 y
-   necesita un contexto de apilado que lo contenga. El .action-wrap original
-   era position:relative sin z-index (= sin contexto), así que acá el backdrop
-   se habría escapado a pintar detrás del fondo de la página. */
-
 .social-dock {
     position: fixed;
     right: 24px;
     bottom: 24px;
-    z-index: 80; /* debajo del header (100) y del panel móvil (90) */
+    z-index: 80; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1301,7 +1260,6 @@ main[id] {
     transition: opacity 0.3s ease;
 }
 
-/* Con el menú móvil abierto el dock queda flotando de fondo: mejor apagarlo */
 body.nav-open .social-dock {
     opacity: 0;
     pointer-events: none;
@@ -1343,8 +1301,6 @@ body.nav-open .social-dock {
 .social-dock-btn {
     --sz-light-hover: 60px;
     --rd-light-hover: 9999px;
-    /* negativo porque el dock está a la derecha: el resplandor sigue al icono,
-       que ahora se inclina hacia la izquierda (donde sale la etiqueta) */
     --l-light-hover: -14px;
     --cl-light: #0000;
     --cr-light: #af40ff;
@@ -1352,9 +1308,6 @@ body.nav-open .social-dock {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Ojo: esta declaración se resuelve como `all 300ms`, y así la queremos.
-       El deslizamiento de la etiqueta anima `left`, que un listado acotado
-       de propiedades dejaría fuera. Mismo caso en las de abajo. */
     transition:
         transform,
         color,
@@ -1365,7 +1318,7 @@ body.nav-open .social-dock {
     border: none;
     color: #444444;
     background: none transparent;
-    text-decoration: none; /* eran <button>; acá son enlaces reales */
+    text-decoration: none; 
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 9999px;
@@ -1409,9 +1362,7 @@ body.nav-open .social-dock {
     width: max-content;
     height: 1.75rem;
     padding: 8px 1px;
-    position: absolute;
-    /* Anclada por la derecha (el original iba por la izquierda): así crece
-       hacia adentro de la página en vez de salirse por el borde. */
+    position: absolute; 
     right: 0;
     z-index: -1;
     border: 1px solid #ccc;
@@ -1426,8 +1377,6 @@ body.nav-open .social-dock {
     font-size: medium;
     font-weight: 600;
     z-index: 1;
-    /* El texto se revela desde el lado del botón: antes entraba por la
-       izquierda, ahora el botón quedó a la derecha y entra por ahí */
     transform: translateX(100%);
     background-color: #fff;
     border-radius: calc(var(--rd-light-hover) - 2px);
@@ -1458,8 +1407,6 @@ body.nav-open .social-dock {
 .social-dock-btn:hover .social-dock-icon {
     color: #000;
     background-color: #fff;
-    /* -12px: el icono se inclina hacia la etiqueta, que ahora sale a la
-       izquierda. Con el +12px original se alejaría de ella. */
     transform: scale(1.4) translate3d(-12px, 0px, 12px);
 }
 
@@ -1502,22 +1449,13 @@ body.nav-open .social-dock {
     .main-header.scrolled { padding: 14px 30px; }
     .main-nav ul { gap: 22px; }
     .services, .portfolio, .about { padding: 100px 30px; }
-    /* la sangría del hero sigue a la del header */
     .hero-content { padding: 0 30px; }
 }
 
 @media (max-width: 980px) {
-    /* Servicios: 2 columnas — las destacadas pasan a ancho completo */
     .services-grid { grid-template-columns: repeat(2, 1fr); }
-    .service-card { grid-column: span 1; }
-    .service-card--feature { grid-column: span 2; }
-    .service-card--wide { grid-column: span 2; }
+    .service-card--last-in-act { grid-column: span 2; }
 
-    /* Con 3 medianas en 2 columnas la última queda huérfana y el hueco a su
-       lado se lee como un error: mejor que ocupe la fila entera */
-    .services-grid > .service-card:nth-child(5) { grid-column: span 2; }
-
-    /* Nosotros: la ficha baja debajo del texto */
     .about-inner { grid-template-columns: 1fr; gap: 44px; }
 }
 
@@ -1532,7 +1470,7 @@ body.nav-open .social-dock {
     .btn-header { display: none; }
     .nav-toggle { display: flex; }
 
-    /* Panel deslizante en móvil */
+    /* Panel deslizante en móvil REVISAR REVISAR REVISAR */
     .main-nav {
         position: fixed;
         inset: 0 0 0 auto;
@@ -1576,11 +1514,7 @@ body.nav-open .social-dock {
     .hero-content h1 { font-size: 2.6rem; }
     .hero-content p { font-size: 1rem; }
     .hero-content { padding: 0 24px; }
-    /* apilados y alineados a la izquierda; 12px porque las píldoras
-       necesitan más aire entre sí que los botones cuadrados de antes */
-    .hero-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
-    /* 14px + 22px de la flecha = 50px: más chico que en desktop pero
-       todavía por encima del mínimo táctil de 44px */
+    .hero-actions { flex-direction: column; align-items: center; gap: 12px; }
     .cta-button { font-size: 15px; padding: 14px 24px; }
     .viewfinder-frame { inset: 70px 16px; }
     .letterbox-top, .letterbox-bottom { height: 4vh; }
@@ -1591,14 +1525,7 @@ body.nav-open .social-dock {
     .services-grid { grid-template-columns: 1fr; gap: 16px; }
     .service-card,
     .service-card--feature,
-    .service-card--wide { grid-column: span 1; }
-
-    /* La ancha deja de ser horizontal cuando no hay ancho */
-    .service-card--wide {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 42px 28px 32px;
-    }
+    .service-card--last-in-act { grid-column: span 1; }
 
     .reel-grid { grid-template-columns: 1fr; }
 
@@ -1610,8 +1537,6 @@ body.nav-open .social-dock {
     .marquee-group { gap: 48px; padding-right: 48px; }
     .social-link { width: 90px; height: 90px; }
 
-    /* Más pegado al borde, pero sin achicar los botones: 56px es el área
-       táctil mínima cómoda y bajarla los volvería difíciles de acertar */
     .social-dock { right: 16px; bottom: 16px; }
 }
 
@@ -1630,7 +1555,6 @@ body.nav-open .social-dock {
         transform: none;
     }
 
-    /* Sin animación la cinta no se mueve sola: se vuelve deslizable a mano */
     .marquee {
         overflow-x: auto;
         -webkit-mask-image: none;
@@ -1642,3 +1566,4 @@ body.nav-open .social-dock {
         transform: none !important;
     }
 }
+
