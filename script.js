@@ -1,16 +1,10 @@
-// Preloader: la página carga en tiempo real. El aro NO se muestra salvo que
-// a los SHOW_AFTER_MS desde el inicio de la navegación la carga siga en curso,
-// y se va apenas termina — sin mínimos ni esperas artificiales.
-//
-// Este bloque corre de inmediato (no en DOMContentLoaded) por dos razones:
-// el div del preloader ya existe cuando el parser llega hasta acá, y el umbral
-// necesita contarse desde que el usuario pidió la página, no desde este script.
+// Preloader: 
 (() => {
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
 
-    const SHOW_AFTER_MS = 400;  // por debajo de esto no se ve absolutamente nada
-    const MAX_MS = 8000;        // red de seguridad: si algo nunca carga, igual se va
+    const SHOW_AFTER_MS = 400;  
+    const MAX_MS = 8000;        
     let shown = false;
     let done = false;
 
@@ -18,8 +12,6 @@
         if (done || shown) return;
         shown = true;
         preloader.classList.add('is-visible');
-        // El bloqueo de scroll lo pone este código, nunca el HTML: si el JS
-        // no llegara a correr, la página queda usable en vez de trabada
         document.body.classList.add('is-loading');
     }
 
@@ -29,20 +21,18 @@
         clearTimeout(showTimer);
         document.body.classList.remove('is-loading');
 
-        // Si nunca llegó a verse, fuera sin ceremonia ni fundido
         if (!shown) {
             preloader.remove();
             return;
         }
 
         preloader.classList.remove('is-visible');
-        // Fuera del DOM al terminar el fundido: si no, el overlay sigue ahí
-        // capturando clics aunque no se vea
+
         preloader.addEventListener('transitionend', () => preloader.remove(), { once: true });
-        setTimeout(() => preloader.remove(), 900); // por si transitionend no dispara
+        setTimeout(() => preloader.remove(), 900); 
     }
 
-    // performance.now() = ms desde que arrancó la navegación
+
     const showTimer = setTimeout(show, Math.max(0, SHOW_AFTER_MS - performance.now()));
 
     if (document.readyState === 'complete') finish();
@@ -57,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!tc) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return; // se queda en 00:00:00, quieto
+    if (prefersReducedMotion) return; 
 
     const start = Date.now();
 
@@ -78,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(tick, 1000);
 });
 
-// Header con fondo al hacer scroll + link activo según la sección visible
+// Header con fondo al hacer scroll 
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.main-header');
     const links = Array.from(document.querySelectorAll('.main-nav ul a[href^="#"]'));
@@ -101,15 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!targets.length) return;
 
-        // La sección activa es la última cuyo inicio ya pasó bajo el header
         const line = window.scrollY + 120;
         let active = targets[0];
         targets.forEach(t => {
             if (t.section.offsetTop <= line) active = t;
         });
 
-        // Al tocar fondo gana siempre la última: si no, una sección corta
-        // al final nunca llegaría a marcarse
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 2) {
             active = targets[targets.length - 1];
         }
@@ -150,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape') setOpen(false);
     });
 
-    // Si se agranda la ventana con el panel abierto, el body queda bloqueado
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) setOpen(false);
     });
@@ -183,11 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
     items.forEach(el => observer.observe(el));
 });
 
-// Marquee de marcas — cinta infinita, sin flechas ni controles.
-// El HTML solo trae el set real de logos una vez; aquí se clona hasta cubrir
-// el ancho y se le dice a la animación que recorra exactamente el ancho de un
-// grupo. Como el grupo siguiente es idéntico, el reinicio cae sobre el mismo
-// fotograma y el bucle no se ve.
 document.addEventListener('DOMContentLoaded', () => {
     const marquee = document.getElementById('brandMarquee');
     const track = document.getElementById('marqueeTrack');
@@ -196,10 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const original = track.querySelector('.marquee-group');
     if (!original) return;
 
-    // Con reduced-motion la cinta no se anima: el CSS la deja deslizable a mano
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const SPEED = 55; // px/segundo — la velocidad no cambia si agregan logos
+    const SPEED = 55; 
     let lastWidth = 0;
 
     function build() {
@@ -213,9 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const groupWidth = original.getBoundingClientRect().width;
         if (!groupWidth) return;
 
-        // Hace falta cubrir el viewport MÁS un grupo de sobra: la animación
-        // desplaza un grupo entero, así que sin ese extra se abre un hueco
-        // en blanco justo antes de reiniciar.
         const copies = Math.ceil(containerWidth / groupWidth) + 1;
         for (let i = 0; i < copies; i++) {
             const clone = original.cloneNode(true);
@@ -230,13 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     build();
 
-    // Los logos tienen tamaño fijo por CSS, pero si alguno llega tarde el
-    // ancho del grupo puede cambiar
     window.addEventListener('load', build);
 
     let resizeTimer;
     window.addEventListener('resize', () => {
-        // Reconstruir reinicia la animación: solo si el ancho cambió de verdad
+
         if (marquee.offsetWidth === lastWidth) return;
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(build, 150);
@@ -247,4 +222,56 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const year = document.getElementById('year');
     if (year) year.textContent = new Date().getFullYear();
+});
+
+// Conteo ascendente (Nosotros)
+document.addEventListener('DOMContentLoaded', () => {
+    const stats = document.querySelectorAll('.stat-num[data-count-to]');
+    if (!stats.length) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function render(el, value) {
+        const prefix = el.dataset.prefix || '';
+        const pad = parseInt(el.dataset.pad, 10) || 0;
+        const digits = pad ? String(value).padStart(pad, '0') : String(value);
+        el.textContent = prefix + digits;
+    }
+
+    function animate(el) {
+        const target = parseInt(el.dataset.countTo, 10);
+        if (Number.isNaN(target)) return;
+
+        if (prefersReducedMotion) {
+            render(el, target);
+            return;
+        }
+
+        const duration = 1300;
+        const start = performance.now();
+
+        function step(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - (1 - progress) * (1 - progress);
+            render(el, Math.round(eased * target));
+
+            if (progress < 1) requestAnimationFrame(step);
+            else render(el, target);
+        }
+
+        requestAnimationFrame(step);
+    }
+
+    stats.forEach(el => render(el, 0));
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animate(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    stats.forEach(el => observer.observe(el));
 });
