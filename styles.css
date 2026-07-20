@@ -1441,6 +1441,93 @@ body.nav-open .social-dock {
 .social-dock-btn:hover .social-dock-label::before {
     transform: translateX(0px);
 }
+.main-footer {
+    background-color: var(--black);
+    padding: 60px;
+    border-top: 1px solid var(--grey-faint);
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0;
+    text-align: left;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 150px;
+}
+
+.logo-title {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    color: var(--off-white);
+}
+
+.logo-title span { color: var(--tally); }
+
+.footer-desc {
+    font-size: 0.75rem;
+    color: var(--grey);
+    line-height: 1.5;
+    max-width: 250px;
+}
+
+.footer-title {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: var(--grey);
+    font-size: 0.8rem;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--tally);
+}
+
+.social-row {
+    display: flex;
+    gap: 10px;
+}
+
+.social-row img {
+    width: 28px;
+    height: 28px;
+    filter: grayscale(1) brightness(0.8);
+    transition: 0.3s;
+}
+
+.social-row img:hover {
+    filter: grayscale(0) brightness(1);
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--grey-faint);
+    text-align: center;
+    color: var(--grey);
+    font-size: 0.7rem;
+}
 
 /* ---------- REGLAS RESPONSIVAS ---------- */
 
