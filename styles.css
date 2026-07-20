@@ -26,6 +26,13 @@
     padding: 0;
     box-sizing: border-box;
 }
+@font-face {
+  font-family: 'Sora';
+  src: url('font/Sora-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; 
+}
 
 :root {
     --black: #0a0a0a;
@@ -38,7 +45,7 @@
     --neon-cyan: #22d3ee;
     --mono: 'JetBrains Mono', monospace;
     --display: 'Bebas Neue', sans-serif;
-    --body-font: 'Montserrat', sans-serif;
+    --body-font: 'Sora', sans-serif;
     --header-h: 84px;
 }
 
@@ -475,7 +482,7 @@ main[id] {
     font-weight: 300;
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.85);
-    margin: 0 auto 40px;
+    margin: 0 auto 10px;
     max-width: 560px;
 }
 
@@ -1601,7 +1608,7 @@ body.nav-open .social-dock {
     .hero-content h1 { font-size: 2.6rem; }
     .hero-content p { font-size: 1rem; }
     .hero-content { padding: 0 24px; }
-    .hero-actions { flex-direction: column; align-items: center; gap: 12px; }
+    .hero-actions { flex-direction: column; align-items: center; gap: 12px;}
     .cta-button { font-size: 15px; padding: 14px 24px; }
     .viewfinder-frame { inset: 70px 16px; }
     .letterbox-top, .letterbox-bottom { height: 4vh; }
