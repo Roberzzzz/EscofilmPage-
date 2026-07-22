@@ -80,7 +80,6 @@ a {
     outline-offset: 3px;
 }
 
-/* Los anchors caen bajo el header fijo si no se compensa */
 section[id],
 main[id] {
     scroll-margin-top: var(--header-h);
@@ -103,10 +102,6 @@ main[id] {
     left: 0;
 }
 
-/* ---------- PRELOADER ---------- */
-/* Loader original de Uiverse.io por fanishah. Se mantiene tal cual salvo
-   por tres ajustes anotados abajo, necesarios para integrarlo aquí. */
-
 .preloader {
     position: fixed;
     inset: 0;
@@ -115,8 +110,6 @@ main[id] {
     align-items: center;
     justify-content: center;
     background: var(--black);
-    /* Arranca invisible a propósito: si la página carga rápido no se ve nunca.
-       Solo el JS lo enciende, y únicamente si la carga se alarga. */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.35s ease, visibility 0.35s ease;
@@ -127,8 +120,6 @@ main[id] {
     visibility: visible;
 }
 
-/* AJUSTE 1: envoltorio de tamaño fijo. El .skugga original es absolute sin
-   top/left, así que caía donde lo dejara el flujo en vez de encima del aro. */
 .loader-spinner {
     position: relative;
     width: 200px;
@@ -144,8 +135,6 @@ main[id] {
 
 .gegga {
     width: 0;
-    /* AJUSTE 2: sin height/position el SVG de defs reserva 150px de alto
-       y descentra el aro */
     height: 0;
     position: absolute;
 }
@@ -180,7 +169,6 @@ main[id] {
     stroke-linecap: round;
 }
 
-/* AJUSTE 3: el position:absolute se movió al bloque de arriba */
 .skugga {
     filter: blur(5px);
     opacity: 0.3;
@@ -210,19 +198,30 @@ main[id] {
     gap: 24px;
     padding: 22px 60px;
     z-index: 100;
+    transition: padding 0.4s ease;
+}
+
+.main-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
     background-color: rgba(10, 10, 10, 0.35);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
 }
 
 .main-header.scrolled {
     padding: 14px 60px;
-    background: rgba(10, 10, 10, 0.92);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
     border-bottom: 1px solid var(--grey-faint);
+}
+
+.main-header.scrolled::before {
+    background-color: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 }
 
 .logo {
@@ -515,11 +514,11 @@ main[id] {
     text-decoration: none; 
     text-transform: uppercase;
     clip-path: polygon(
-        /* sup. izq. */ 0% var(--curve-size),
+        0% var(--curve-size),
         var(--curve-size) 0,
-        /* sup. der. */ 100% 0,
+        100% 0,
         100% calc(100% - var(--curve-size)),
-        /* inf. der. */ calc(100% - var(--curve-size)) 100%,
+        calc(100% - var(--curve-size)) 100%,
         0 100%
     );
     transition: color 250ms;
@@ -592,7 +591,6 @@ main[id] {
 }
 
 .cta-button:where(:hover, :focus-visible) .arrow {
-    /* sobre el degradado revelado el rojo de marca se pierde */
     color: #fff;
     transform: translateX(6px);
 }
@@ -1050,7 +1048,7 @@ main[id] {
     background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
 }
 
-/* Modal del reel */
+/*reel tarjeta instagram */
 .reel-card--modal {
     padding: 0;
 }
@@ -1118,11 +1116,15 @@ body.reel-modal-open {
     position: relative;
     width: 100%;
     max-width: 380px;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
     background: var(--charcoal);
     border: 1px solid rgba(255, 45, 85, 0.4);
     box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.85);
     transform: translateY(16px) scale(0.98);
     transition: transform 0.25s ease;
+    overflow: hidden;
 }
 
 .reel-modal-overlay.is-open .reel-modal {
@@ -1136,6 +1138,7 @@ body.reel-modal-open {
     gap: 10px;
     padding: 12px 12px 12px 14px;
     border-bottom: 1px solid var(--grey-faint);
+    flex-shrink: 0;
 }
 
 .reel-modal-slate-label {
@@ -1192,18 +1195,20 @@ body.reel-modal-open {
     color: var(--tally);
 }
 
+/* El embed real de Instagram */
 .reel-modal-embed {
     position: relative;
     width: 100%;
-    aspect-ratio: 9 / 16;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
     background: #000;
 }
 
 .reel-modal-embed iframe {
-    position: absolute;
-    inset: 0;
+    display: block;
     width: 100%;
-    height: 100%;
+    height: 920px;
     border: 0;
 }
 
