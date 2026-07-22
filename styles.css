@@ -943,6 +943,13 @@ main[id] {
     padding: 4px 11px;
 }
 
+.service-tags :hover{
+    border-color: var(--tally);
+    transform: scale(1.1);
+    transition:  0.3s ease;
+
+}
+
 
 .film-perf {
     height: 22px;
