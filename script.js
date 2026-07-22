@@ -325,3 +325,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     stats.forEach(el => observer.observe(el));
 });
+
+/*
+document.addEventListener("DOMContentLoaded",() =>{
+const modal = document.getElementById("modal");
+const btnCita = document.getElementById("btnCita");
+const btnClose = document.getElementById("closeModal");
+const citaForm = document.getElementById("citaForm");
+
+if (!modal || !btnCita) return;
+
+btnCita.addEventListener("click", e =>{
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+});
+
+const closeModal = () =>{
+    modal.style.display = "none";
+    document.body.style.overflow = ""
+};
+
+if (btnClose) btnClose.addEventListener("click", closeModal);
+
+modal.addEventListener("click", (e) =>{
+    if (e.target === modal) closeModal();
+});
+
+if  (citaForm) {
+    citaForm.addEventListener("submit", (e) =>{
+        e.preventDefault();
+        closeModal();
+        citaForm.reset()
+    })
+}
+
+
+});*/
