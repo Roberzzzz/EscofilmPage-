@@ -255,12 +255,17 @@
             <div class="film-perf" aria-hidden="true"></div>
 
             <div class="reel-grid">
-                <article class="reel-card">
-                    <img src="src/dystopia.png" alt="Dystopia Bowling &amp; Lounge">
-                    <div class="reel-overlay">
-                        <span class="reel-take">TOMA 01</span>
-                        <span class="reel-name">Dystopia — Bowling &amp; Lounge</span>
-                    </div>
+                <article class="reel-card reel-card--modal">
+                    <button type="button" class="reel-trigger" data-reel-src="https://www.instagram.com/reel/C0HeNn6OLgQ/embed" data-reel-title="Dystopia — Bowling &amp; Lounge" data-reel-take="TOMA 01" aria-haspopup="dialog" aria-label="Ver reel de Dystopia — Bowling &amp; Lounge">
+                        <img src="src/dystopia.png" alt="Dystopia — Bowling &amp; Lounge">
+                        <span class="reel-play" aria-hidden="true">
+                            <img src="src/servicios/instagram-circle.svg" alt="">
+                        </span>
+                        <div class="reel-overlay">
+                            <span class="reel-take">TOMA 01</span>
+                            <span class="reel-name">Dystopia — Bowling &amp; Lounge</span>
+                        </div>
+                    </button>
                 </article>
                 <article class="reel-card">
                     <img src="src/sole.png" alt="Sole Visione">
@@ -269,19 +274,29 @@
                         <span class="reel-name">Sole Visione</span>
                     </div>
                 </article>
-                <article class="reel-card">
-                    <img src="src/btk.png" alt="BTK">
-                    <div class="reel-overlay">
-                        <span class="reel-take">TOMA 03</span>
-                        <span class="reel-name">BTK</span>
-                    </div>
+                <article class="reel-card reel-card--modal">
+                    <button type="button" class="reel-trigger" data-reel-src="https://www.instagram.com/reel/DMNwa7bzJbW/embed" data-reel-title="BTK" data-reel-take="TOMA 03" aria-haspopup="dialog" aria-label="Ver reel de BTK">
+                        <img src="src/btk.png" alt="BTK">
+                        <span class="reel-play" aria-hidden="true">
+                            <img src="src/servicios/instagram-circle.svg" alt="">
+                        </span>
+                        <div class="reel-overlay">
+                            <span class="reel-take">TOMA 03</span>
+                            <span class="reel-name">BTK</span>
+                        </div>
+                    </button>
                 </article>
-                <article class="reel-card">
-                    <img src="src/confremarca.png" alt="Grupo Confremarca">
-                    <div class="reel-overlay">
-                        <span class="reel-take">TOMA 04</span>
-                        <span class="reel-name">Grupo Confremarca</span>
-                    </div>
+                <article class="reel-card reel-card--modal">
+                    <button type="button" class="reel-trigger" data-reel-src="https://www.instagram.com/reel/DGT6MGeyAVK/embed" data-reel-title="Grupo Confremarca" data-reel-take="TOMA 04" aria-haspopup="dialog" aria-label="Ver reel de Grupo Confremarca">
+                        <img src="src/confremarca.png" alt="Grupo Confremarca">
+                        <span class="reel-play" aria-hidden="true">
+                            <img src="src/servicios/instagram-circle.svg" alt="">
+                        </span>
+                        <div class="reel-overlay">
+                            <span class="reel-take">TOMA 04</span>
+                            <span class="reel-name">Grupo Confremarca</span>
+                        </div>
+                    </button>
                 </article>
                 <article class="reel-card">
                     <img src="src/aircanet.png" alt="Aircanet">
@@ -290,12 +305,17 @@
                         <span class="reel-name">Aircanet</span>
                     </div>
                 </article>
-                <article class="reel-card">
-                    <img src="src/credimara.png" alt="Credimara">
-                    <div class="reel-overlay">
-                        <span class="reel-take">TOMA 06</span>
-                        <span class="reel-name">Credimara</span>
-                    </div>
+                <article class="reel-card reel-card--modal">
+                    <button type="button" class="reel-trigger" data-reel-src="https://www.instagram.com/reel/DKNect0ojRM/embed" data-reel-title="Credimara" data-reel-take="TOMA 06" aria-haspopup="dialog" aria-label="Ver reel de Credimara">
+                        <img src="src/credimara.png" alt="Credimara">
+                        <span class="reel-play" aria-hidden="true">
+                            <img src="src/servicios/instagram-circle.svg" alt="">
+                        </span>
+                        <div class="reel-overlay">
+                            <span class="reel-take">TOMA 06</span>
+                            <span class="reel-name">Credimara</span>
+                        </div>
+                    </button>
                 </article>
             </div>
 
@@ -485,6 +505,23 @@
 
         <div class="social-dock-backdrop" aria-hidden="true"></div>
     </nav>
+
+    <!-- Modal de los reels de ig-->
+    <div class="reel-modal-overlay" id="reelModalOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="reel-modal">
+            <div class="reel-modal-slate">
+                <div class="reel-modal-slate-label">
+                    <span class="dot" aria-hidden="true"></span>
+                    <span id="reelModalTake">TOMA 01</span>
+                </div>
+                <h3 class="reel-modal-title" id="reelModalTitle">—</h3>
+                <button type="button" class="reel-modal-close" id="reelModalClose" aria-label="Cerrar">✕</button>
+            </div>
+            <div class="reel-modal-embed">
+                <iframe id="reelModalFrame" src="" title="Reel de Instagram" loading="lazy" allowtransparency="true"></iframe>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

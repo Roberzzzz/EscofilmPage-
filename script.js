@@ -224,6 +224,56 @@ document.addEventListener('DOMContentLoaded', () => {
     if (year) year.textContent = new Date().getFullYear();
 });
 
+// Modal de reels de Instagram
+document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('reelModalOverlay');
+    const triggers = document.querySelectorAll('.reel-trigger[data-reel-src]');
+    if (!overlay || !triggers.length) return;
+
+    const frame = document.getElementById('reelModalFrame');
+    const titleEl = document.getElementById('reelModalTitle');
+    const takeEl = document.getElementById('reelModalTake');
+    const closeBtn = document.getElementById('reelModalClose');
+    let lastFocused = null;
+
+    function openModal(trigger) {
+        const src = trigger.dataset.reelSrc;
+        if (!src || !frame) return;
+
+        frame.src = src;
+        if (titleEl) titleEl.textContent = trigger.dataset.reelTitle || '';
+        if (takeEl) takeEl.textContent = trigger.dataset.reelTake || '';
+
+        lastFocused = document.activeElement;
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('reel-modal-open');
+        if (closeBtn) closeBtn.focus();
+    }
+
+    function closeModal() {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('reel-modal-open');
+        if (frame) frame.src = ''; 
+        if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => openModal(trigger));
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
+    });
+});
+
 // Conteo ascendente (Nosotros)
 document.addEventListener('DOMContentLoaded', () => {
     const stats = document.querySelectorAll('.stat-num[data-count-to]');
