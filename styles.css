@@ -941,12 +941,12 @@ main[id] {
     border: 1px solid var(--grey-faint);
     border-radius: 100px;
     padding: 4px 11px;
+    transition:  0.3s ease;
 }
 
 .service-tags :hover{
     border-color: var(--tally);
     transform: scale(1.1);
-    transition:  0.3s ease;
 
 }
 
