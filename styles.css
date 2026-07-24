@@ -490,7 +490,7 @@ main[id] {
 
 
 .cta-button {
-    --border-color: linear-gradient(-45deg, var(--gold), var(--silver), var(--gold));
+    --border-color: linear-gradient(-45deg, var(--gold) 0%, var(--gold) 38%, var(--silver) 50%, var(--gold) 62%, var(--gold) 100%);
     --border-width: 0.125em;
     --curve-size: 0.5em;
     --bg: var(--black);
@@ -1454,7 +1454,7 @@ body.nav-open .social-dock {
     height: 10.5rem;
     width: 10.5rem;
     border-radius: 9999px;
-    background: linear-gradient(144deg, var(--gold), var(--silver));
+    background: linear-gradient(144deg, var(--gold) 0%, var(--gold) 38%, var(--silver) 50%, var(--gold) 62%, var(--gold) 100%);
     animation: social-dock-rotate 1.5s linear infinite;
 }
 
@@ -1502,7 +1502,7 @@ body.nav-open .social-dock {
     z-index: 9;
     padding: 0.5rem;
     border-radius: 9999px;
-    background-color: #f1f1f1;
+    background-color: #efe6d3;
     transition:
         transform,
         color,
