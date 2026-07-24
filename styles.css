@@ -398,12 +398,7 @@ main[id] {
 
 .letterbox-top,
 .letterbox-bottom {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 7vh;
-    background: var(--black);
-    z-index: 6;
+    display: none;
 }
 
 .letterbox-top { top: 0; }
@@ -412,7 +407,7 @@ main[id] {
 /* Marco tipo visor de cámara */
 .viewfinder-frame {
     position: absolute;
-    inset: calc(7vh + 30px) 40px;
+    inset: 40px;
     z-index: 7;
     pointer-events: none;
 }
@@ -841,8 +836,8 @@ main[id] {
 
 .service-card:hover {
     border-color: var(--gold);
-    box-shadow: 0 0 30px -8px rgba(202, 161, 75, 0.55), inset 0 0 24px -16px var(--gold);
-    transform: translateY(-6px);
+    box-shadow: none;
+    transform: translateY(-4px);
 }
 
 /* Tarjetas del Rollo A */
@@ -895,8 +890,7 @@ main[id] {
 }
 
 .service-card:hover .service-icon img {
-    filter: invert(75%) sepia(53%) saturate(496%) hue-rotate(358deg) brightness(93%) contrast(91%)
-            drop-shadow(0 0 8px rgba(202, 161, 75, 0.7));
+    filter: invert(75%) sepia(53%) saturate(496%) hue-rotate(358deg) brightness(93%) contrast(91%);
 }
 
 .service-card h3 {
