@@ -958,11 +958,22 @@ main[id] {
 .portfolio::after {
     content: '';
     position: absolute;
-    bottom: -140px;
+    top: -140px;
+    right: -140px;
+    width: 460px;
+    height: 460px;
+    background: radial-gradient(circle, rgba(199, 199, 207, 0.263), transparent 70%);
+    pointer-events: none;
+}
+
+.portfolio::before {
+    content: '';
+    position: absolute;
+    top: -140px;
     left: -140px;
     width: 460px;
     height: 460px;
-    background: radial-gradient(circle, rgba(199, 199, 207, 0.13), transparent 70%);
+    background: radial-gradient(circle, rgba(199, 199, 207, 0.263), transparent 70%);
     pointer-events: none;
 }
 
@@ -992,7 +1003,7 @@ main[id] {
     position: relative;
     aspect-ratio: 4 / 3;
     overflow: hidden;
-    background: #050505;
+    background: #1e1e25;
     border-radius: 0;
     opacity: 0;
     transform: translateY(22px) scale(0.98);
@@ -1400,8 +1411,8 @@ body.reel-modal-open {
 }
 
 .main-footer p {
-    font-family: var(--mono);
-    font-size: 0.75rem;
+    font-family: var(--body-font);
+    font-size: 0.85rem;
     color: var(--grey);
     letter-spacing: 0.5px;
     margin-top: 4px;
@@ -1662,7 +1673,7 @@ body.nav-open .social-dock {
 }
 
 .footer-links a:hover {
-    color: #FFD700;
+    color: #caa14b;
 }
 
 .social-row {
