@@ -1637,6 +1637,7 @@ body.nav-open .social-dock {
 .logo-title span { color: var(--tally); }
 
 .footer-desc {
+    font-family: var(--body-font);
     font-size: 0.75rem;
     color: var(--grey);
     line-height: 1.5;
@@ -1666,7 +1667,7 @@ body.nav-open .social-dock {
 }
 
 .footer-links a:hover {
-    color: var(--tally);
+    color: #FFD700;
 }
 
 .social-row {
