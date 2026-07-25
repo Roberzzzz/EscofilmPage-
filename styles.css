@@ -145,11 +145,11 @@ main[id] {
 }
 
 .stopp1 {
-    stop-color: #f700a8;
+    stop-color: var(--gold);
 }
 
 .stopp2 {
-    stop-color: #ff8000;
+    stop-color: var(--silver);
 }
 
 .halvan {
