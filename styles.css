@@ -490,7 +490,7 @@ main[id] {
 
 
 .cta-button {
-    --border-color: linear-gradient(-45deg, var(--gold), var(--silver), var(--gold));
+    --border-color: linear-gradient(-45deg, var(--gold) 0%, var(--gold) 38%, var(--silver) 50%, var(--gold) 62%, var(--gold) 100%);
     --border-width: 0.125em;
     --curve-size: 0.5em;
     --bg: var(--black);
@@ -958,11 +958,22 @@ main[id] {
 .portfolio::after {
     content: '';
     position: absolute;
-    bottom: -140px;
+    top: -140px;
+    right: -140px;
+    width: 460px;
+    height: 460px;
+    background: radial-gradient(circle, rgba(199, 199, 207, 0.263), transparent 70%);
+    pointer-events: none;
+}
+
+.portfolio::before {
+    content: '';
+    position: absolute;
+    top: -140px;
     left: -140px;
     width: 460px;
     height: 460px;
-    background: radial-gradient(circle, rgba(199, 199, 207, 0.13), transparent 70%);
+    background: radial-gradient(circle, rgba(199, 199, 207, 0.263), transparent 70%);
     pointer-events: none;
 }
 
@@ -986,18 +997,40 @@ main[id] {
     gap: 4px;
     background: #000;
     padding: 4px;
+    counter-reset: reel-count;
 }
 
 .reel-card {
     position: relative;
     aspect-ratio: 4 / 3;
     overflow: hidden;
-    background: #050505;
+    background:
+        radial-gradient(circle at 50% 42%, rgba(202, 162, 75, 0.231) 0%, transparent 62%),
+        #17171c;
     border-radius: 0;
     opacity: 0;
     transform: translateY(22px) scale(0.98);
     transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.35s ease;
     transition-delay: var(--delay, 0ms);
+    counter-increment: reel-count;
+}
+
+/* Numeral fantasma de fondo: llena el vacío de la tarjeta con el mismo
+   lenguaje editorial de "TOMA 0X" que ya usa el resto de la sección,
+   en vez de depender del color de cada logo. */
+.reel-card::before {
+    content: counter(reel-count, decimal-leading-zero);
+    position: absolute;
+    right: -0.06em;
+    bottom: -0.2em;
+    font-family: var(--display);
+    font-size: 7rem;
+    line-height: 1;
+    letter-spacing: 0;
+    color: var(--off-white);
+    opacity: 0.05;
+    pointer-events: none;
+    user-select: none;
 }
 
 .reel-card.in-view {
@@ -1006,16 +1039,22 @@ main[id] {
 }
 
 .reel-card:hover {
-    box-shadow: inset 0 0 0 1px rgba(202, 161, 75, 0.5);
+    box-shadow: inset 0 0 0 2px rgba(224, 179, 83, 0.872);
+}
+
+.reel-card:hover::before {
+    color: var(--gold);
+    opacity: 0.1;
 }
 
 .reel-card img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    padding: 22%;
+    padding: 16%;
     filter: grayscale(1) brightness(0.9);
     transition: filter 0.4s ease, transform 0.4s ease;
+    position: relative;
 }
 
 .reel-card:hover img {
@@ -1201,17 +1240,16 @@ body.reel-modal-open {
     font-family: var(--mono);
     font-size: 0.7rem;
     letter-spacing: 1px;
-    color: var(--gold);
     margin-bottom: 4px;
 }
 
 .reel-name {
     font-size: 1rem;
     font-weight: 600;
+    color: #fddd97;
 }
 
 /* ---------- NOSOTROS ---------- */
-
 .about {
     position: relative;
     padding: 120px 60px;
@@ -1269,80 +1307,137 @@ body.reel-modal-open {
     margin-top: 18px;
 }
 
-.about-sheet {
-    border: 1px solid var(--grey-faint);
+aside.about-sheet.about-filmstrip {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background: #000;
+    border: 1px solid rgba(224, 179, 83, 0.2); 
+    overflow: hidden;
     border-radius: 8px;
-    background: rgba(10, 10, 10, 0.55);
-    padding: 26px;
+
+    max-width: 380px;
+    margin: 0 auto;
 }
 
-.sheet-head {
+.about-sheet.about-filmstrip .about-perf {
+    height: 14px;
+    width: 100%;
+    background-color: #000;
+    background-image: radial-gradient(circle, var(--charcoal, #333) 4px, transparent 4.5px);
+    background-size: 24px 14px;
+    background-repeat: repeat-x;
+    z-index: 2;
+}
+
+.about-carousel-container {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 10px;
+    background: #000;
+    padding: 4px;
+    overflow: hidden;
+}
+
+.about-track {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.about-track::-webkit-scrollbar {
+    display: none;
+}
+
+.about-team-card {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    position: relative;
+    height: auto; 
+    overflow: hidden;
+    background: #17171c;
+    transition: box-shadow 0.35s ease;
+}
+
+.about-team-card:hover {
+    box-shadow: inset 0 0 0 2px rgba(224, 179, 83, 0.872);
+}
+
+.about-team-card img {
+    width: 100%;
+    height: auto;
+    object-fit: contain; 
+    display: block;
+    filter: grayscale(1) brightness(0.9);
+    transition: filter 0.4s ease, transform 0.4s ease;
+    position: relative;
+}
+
+.about-team-card:hover img {
+    filter: grayscale(0) brightness(1);
+    transform: scale(1.04);
+}
+
+.about-team-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 18px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+    pointer-events: none; 
+}
+
+.about-take {
     font-family: var(--mono);
     font-size: 0.7rem;
-    letter-spacing: 2px;
-    color: var(--grey);
-    padding-bottom: 16px;
-    margin-bottom: 8px;
-    border-bottom: 1px solid var(--grey-faint);
-}
-
-.sheet-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 16px;
-    padding: 11px 0;
-    border-bottom: 1px dashed rgba(242, 240, 236, 0.09);
-    font-family: var(--mono);
-    font-size: 0.78rem;
-}
-
-.sheet-row dt {
-    color: var(--grey);
-}
-
-.sheet-row dd {
-    color: var(--off-white);
-    text-align: right;
-}
-
-.sheet-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 24px;
-}
-
-.stat {
-    text-align: center;
-    padding: 18px 10px;
-    border: 1px solid rgba(202, 161, 75, 0.25);
-    border-radius: 6px;
-    background: linear-gradient(180deg, rgba(202, 161, 75, 0.07), transparent);
-}
-
-.stat-num {
-    display: block;
-    font-family: var(--display);
-    font-size: 2.4rem;
-    line-height: 1;
-    color: var(--off-white);
-}
-
-.stat-label {
-    display: block;
-    margin-top: 8px;
-    font-family: var(--mono);
-    font-size: 0.62rem;
     letter-spacing: 1px;
-    text-transform: uppercase;
     color: var(--grey);
-    line-height: 1.5;
+    margin-bottom: 4px;
 }
 
+.about-name {
+    font-family: var(--display);
+    font-size: 0.85rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+}
+
+.about-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--off-white);
+    border: 1px solid rgba(224, 179, 83, 0.3);
+    font-size: 1.5rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    border-radius: 4px;
+}
+
+.about-nav-btn:hover {
+    background: rgba(224, 179, 83, 0.2);
+    border-color: var(--gold);
+}
+
+.about-nav-btn.about-prev {
+    left: 10px;
+}
+
+.about-nav-btn.about-next {
+    right: 10px;
+}
 /* ---------- CONTACTO ---------- */
 
 .contact {
@@ -1400,8 +1495,8 @@ body.reel-modal-open {
 }
 
 .main-footer p {
-    font-family: var(--mono);
-    font-size: 0.75rem;
+    font-family: var(--body-font);
+    font-size: 0.85rem;
     color: var(--grey);
     letter-spacing: 0.5px;
     margin-top: 4px;
@@ -1443,7 +1538,7 @@ body.nav-open .social-dock {
     height: 10.5rem;
     width: 10.5rem;
     border-radius: 9999px;
-    background: linear-gradient(144deg, var(--gold), var(--silver));
+    background: linear-gradient(144deg, var(--gold) 0%, var(--gold) 38%, var(--silver) 50%, var(--gold) 62%, var(--gold) 100%);
     animation: social-dock-rotate 1.5s linear infinite;
 }
 
@@ -1491,7 +1586,7 @@ body.nav-open .social-dock {
     z-index: 9;
     padding: 0.5rem;
     border-radius: 9999px;
-    background-color: #f1f1f1;
+    background-color: #efe6d3;
     transition:
         transform,
         color,
@@ -1662,7 +1757,7 @@ body.nav-open .social-dock {
 }
 
 .footer-links a:hover {
-    color: #FFD700;
+    color: #caa14b;
 }
 
 .social-row {

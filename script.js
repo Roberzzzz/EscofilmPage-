@@ -326,6 +326,25 @@ document.addEventListener('DOMContentLoaded', () => {
     stats.forEach(el => observer.observe(el));
 });
 
+//Cambios de imagenes en el carrusel
+document.addEventListener("DOMContentLoaded", () => {
+    const track = document.getElementById("aboutTrack");
+    const nextBtn = document.querySelector(".about-next");
+    const prevBtn = document.querySelector(".about-prev");
+
+    if (track && nextBtn && prevBtn) {
+        const scrollAmount = () => track.clientWidth;
+
+        nextBtn.addEventListener("click", () => {
+            track.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+        });
+
+        prevBtn.addEventListener("click", () => {
+            track.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+        });
+    }
+});
+
 /*
 document.addEventListener("DOMContentLoaded",() =>{
 const modal = document.getElementById("modal");
