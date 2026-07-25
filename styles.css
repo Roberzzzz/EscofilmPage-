@@ -1047,6 +1047,11 @@ main[id] {
     opacity: 0.1;
 }
 
+.reel-card:hover::before {
+    color: var(--gold);
+    opacity: 0.1;
+}
+
 .reel-card img {
     width: 100%;
     height: 100%;
