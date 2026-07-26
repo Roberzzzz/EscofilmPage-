@@ -62,7 +62,7 @@
             </ul>
         </nav>
 
-        <a href="#contacto" class="btn-header">Contáctanos</a>
+        <a href="https://calendar.app.google/oNw9YKqZztcAcxQv5" class="btn-header" target="_blank">Agendar Cita</a>
 
         <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">
             <span></span>
@@ -512,50 +512,82 @@
     </section>
     <div class="film-perf" aria-hidden="true"></div>
 
-    <!-- CONTACTO -->
-    <section class="contact" id="contacto">
-        <div class="viewfinder-frame contact-frame" aria-hidden="true">
-            <span class="corner tl"></span>
-            <span class="corner tr"></span>
-            <span class="corner bl"></span>
-            <span class="corner br"></span>
-        </div>
+<!-- CONTACTO -->
+<section class="contact" id="contacto">
+    <div class="viewfinder-frame contact-frame" aria-hidden="true">
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+    </div>
 
-        <span class="eyebrow">— corte final —</span>
-        <h2>¿Listos para rodar tu próxima campaña?</h2>
-        <p>Cuéntanos qué necesitas y armamos el plan de rodaje.</p>
+    <span class="eyebrow">— corte final —</span>
+    <h2>¿Listos para rodar tu próxima campaña?</h2>
+    <p>Cuéntanos qué necesitas y armamos el plan de rodaje.</p>
 
-        <!-- reemplazar por el destino real de escofilm antes de publicar ;v -->
-         <a  class="cta-button" id="btnCita" href="https://calendar.app.google/oNw9YKqZztcAcxQv5"  target="_blank">
-            
-         <span>AGENDAR CITA</span>
-         <svg fill="none" viewBox="0 0 24 24" class="arrow" aria-hidden="true" focusable="false">
-             <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M5 12h14M13 6l6 6-6 6"></path>
-         </svg>
-        </a>
 
-     
-    </section>
-    <!-- Lo del modal
-    
-    <div class="modal" id="modal">
+    <!-- Modal de Contacto / Formulario -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="form-container">
-            <button type="button" id="closeModal" style="align-self: flex-end; background: none; border: none; color: #fff; cursor: pointer; font-size: 1.2rem;">✕</button>
+            
+            
             
             <form class="form" id="citaForm">
                 <div class="form-group">
-                    <label for="email">Company Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="textarea">How Can We Help You?</label>
-                <textarea name="textarea" id="textarea" rows="10" cols="50" required></textarea>
-            </div>
-            <button class="form-submit-btn" type="submit">Submit</button>
-        </form>
+                    <label for="name" class="footer-title">Nombre Completo:</label>
+                    <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="footer-title">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@email.com" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="phone" class="footer-title">Número de contacto:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="0424-8888888" pattern="[0-9]{4}-[0-9]{7}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="textarea" class="footer-title">Motivo del mensaje:</label>
+                    <textarea name="textarea" id="textarea" rows="5" maxlength="1000" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
+                </div>
+
+                <button class="cta-button" type="submit">
+                    <span>ENVIAR MENSAJE</span>
+                </button>
+            </form>
+        </div>
     </div>
-</div>
--->
+
+    <!-- Tarjetas de datos de contacto directos -->
+    <div class="contactoEsco">
+        <div class="contact-card">
+            <div class="content">
+                <div class="contact-icon">
+                    <img src="src/servicios/marcador.svg" alt="" aria-hidden="true" class="icon">
+                </div>
+                <div class="details">
+                    <p><a href="https://maps.google.com" target="_blank" rel="noopener" class="contacto-card">Maracaibo</a></p>
+                    <p>Venezuela</p>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="contact-icon">
+                    <img src="src/servicios/whatsapp.svg" alt="" aria-hidden="true" class="icon">
+                </div>
+                <div class="details">
+                    <p><a href="https://wa.me/58xxxxxxxxx" target="_blank" rel="noopener">Escríbenos a WhatsApp</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+     
+    </section>
+    <!-- Lo del modal-->
 
 
     <!-- FOOTER -->

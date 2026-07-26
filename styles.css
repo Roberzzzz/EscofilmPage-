@@ -1919,32 +1919,33 @@ body.nav-open .social-dock {
     /*Para el formulario*/
     /* From Uiverse.io by gharsh11032000 */ 
 
-    .modal{
-    display: none;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-   
-    inset: 0;
-    z-index: 10000;
-    
+.modal{
+    display: flex;
+    /*background-color: rgba(0, 0, 0, 0.5);*/
     justify-content: center;
     align-items: center;
-    }
+    
+    
+}
+
     .form-container {
 
-    width: 400px;
-    background: linear-gradient(#212121, #212121) padding-box,
-                linear-gradient(145deg, transparent 35%,#e81cff, #40c9ff) border-box;
+    width: 800px;
+    background: linear-gradient(transparent, transparent) padding-box,
+                linear-gradient(145deg, transparent 35%,transparent, #caa14b) border-box;
+    /*  
 
-    border: 2px solid transparent;
-    padding: 32px 24px;
-    font-size: 14px;
-    font-family: inherit;
-    color: white;
+                #caa14b
+                #c7c7cf
+                background-color: red;
+                */
+    border: 2px solid #caa14b;
+    padding: 24px 24px;
     flex-direction: column;
     gap: 20px;
     box-sizing: border-box;
     border-radius: 16px;
+    text-align: left;
 
 
     }
@@ -1978,7 +1979,7 @@ body.nav-open .social-dock {
     padding: 12px 16px;
     border-radius: 8px;
     color: #fff;
-    font-family: inherit;
+    font-family: var(--body);
     background-color: transparent;
     border: 1px solid #414141;
     }
@@ -1988,11 +1989,10 @@ body.nav-open .social-dock {
     padding: 12px 16px;
     border-radius: 8px;
     resize: none;
-    color: #fff;
     height: 96px;
     border: 1px solid #414141;
     background-color: transparent;
-    font-family: inherit;
+    font-family: var(--body);
     }
 
     .form-container .form-group input::placeholder {
@@ -2001,12 +2001,12 @@ body.nav-open .social-dock {
 
     .form-container .form-group input:focus {
     outline: none;
-    border-color: #e81cff;
+    border-color: var(--silver);
     }
 
     .form-container .form-group textarea:focus {
     outline: none;
-    border-color: #e81cff;
+    border-color: var(--silver);
     }
 
     .form-container .form-submit-btn {
@@ -2014,14 +2014,14 @@ body.nav-open .social-dock {
     align-items: flex-start;
     justify-content: center;
     align-self: flex-start;
-    font-family: inherit;
+    font-family: var(--body);
     color: #717171;
     font-weight: 600;
     width: 40%;
     background: #313131;
     border: 1px solid #414141;
     padding: 12px 16px;
-    font-size: inherit;
+    font-size: var(--body);
     gap: 8px;
     margin-top: 8px;
     cursor: pointer;
@@ -2033,7 +2033,93 @@ body.nav-open .social-dock {
     border-color: #fff;
     }
 
+    .contactoEsco {
+         
+    margin: 50px auto;
+    max-width: 90%;
+    padding: 20px;
 
 
+    flex-wrap: wrap;
+    gap: 15px;
+    
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
 
+    /*
+    border: 2px solid black;
+    border-radius: 25px;
+    */
+    }
 
+    /* ---------- SECCIÓN CONTACTO Y TARJETAS ---------- */
+
+/* Contenedor principal */
+    .contact-card {
+      padding: 20px;
+      max-width: 720px;
+      color: #333333;
+      gap: 300px;
+    display: flex;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+    }
+
+    /* Título principal */
+    .contact-card h2 {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 0 0 15px 0;
+      color: #333333;
+    }
+
+    /* Disposición del ícono y el contenido */
+    .contact-card .content {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 0px, 135px;
+    }
+
+    /* Estilo del icono SVG */
+    .contact-card .icon {
+      width: 55px;
+      height: 55px;
+      flex-shrink: 0;
+      color: var(--selec); 
+    }
+
+    /* Textos y enlaces */
+    .contact-card .details {
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .contact-card p {
+      margin: 0;
+    }
+
+    .contact-card a {
+      color: var(--selec);
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    .contact-card a:hover {
+      color: #92722c;
+    }
+
+    .contact-icon img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: invert(1) brightness(0.95);
+    transition: filter 0.35s ease;
+    }
+
+    .contact-card .content:hover .contact-icon img{
+    filter: invert(75%) sepia(53%) saturate(496%) hue-rotate(358deg) brightness(93%) contrast(91%);
+    }
