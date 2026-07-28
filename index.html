@@ -527,39 +527,47 @@
 
 
     <!-- Modal de Contacto / Formulario -->
-    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="form-container">
-            
-            
-            
-            <form class="form" id="citaForm">
-                <div class="form-group">
-                    <label for="name" class="footer-title">Nombre Completo:</label>
-                    <input type="text" id="name" name="name" placeholder="Tu nombre" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email" class="footer-title">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="ejemplo@email.com" required>
-                </div>
-            
-                <div class="form-group">
-                    <label for="phone" class="footer-title">Número de contacto:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="0424-8888888" pattern="[0-9]{4}-[0-9]{7}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="textarea" class="footer-title">Motivo del mensaje:</label>
-                    <textarea name="textarea" id="textarea" rows="5" maxlength="1000" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
-                </div>
 
-                <button class="cta-button" type="submit">
-                    <span>ENVIAR MENSAJE</span>
-                </button>
-            </form>
+    <div class="film-perf" aria-hidden="true"></div>
+    <div class="modalContainer">
+
+
+        <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="form-container">
+                
+                
+                
+                <form class="form" id="citaForm">
+                    <div class="form-group">
+                        <label for="name" class="footer-title">Nombre Completo:</label>
+                        <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="footer-title">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="ejemplo@email.com" required>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="phone" class="footer-title">Número de contacto:</label>
+                        <input type="tel" id="phone" name="phone" placeholder="0424-8888888" pattern="[0-9]{4}-[0-9]{7}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="textarea" class="footer-title">Motivo del mensaje:</label>
+                        <textarea name="textarea" id="textarea" rows="5" maxlength="1000" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
+                    </div>
+
+                    <button class="cta-button" type="submit">
+                        <span>ENVIAR MENSAJE</span>
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
 
+    </div>
+    <div class="film-perf" aria-hidden="true"></div>
+    
     <!-- Tarjetas de datos de contacto directos -->
     <div class="contactoEsco">
         <div class="contact-card">
@@ -587,7 +595,6 @@
 
      
     </section>
-    <!-- Lo del modal-->
 
 
     <!-- FOOTER -->
