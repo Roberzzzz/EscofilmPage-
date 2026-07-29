@@ -1531,8 +1531,8 @@ aside.about-sheet.about-filmstrip {
 
 .contact .film-perf {
     width: 900px;
-    align-self: center;
-    justify-self: center;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 
@@ -1974,12 +1974,12 @@ body.nav-open .social-dock {
     background-color: var(--charcoal);
     padding: 24px;
     width: 900px;
-    
+    max-width: 100%;
+    margin: 0 auto;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    align-self: center;
-    justify-self: center;
     box-sizing: border-box;
 }
 
