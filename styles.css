@@ -352,6 +352,50 @@ main[id] {
     transform: translateY(-7px) rotate(-45deg);
 }
 
+/* Botón cerrar del menú móvil */
+.nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: 1px solid var(--grey-faint);
+    border-radius: 2px;
+    color: var(--off-white);
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-close:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+@media (max-width: 768px) {
+    .nav-close {
+        display: flex;
+    }
+
+    .main-nav {
+        position: fixed;
+        inset: 0 0 0 auto;
+        width: min(300px, 82vw);
+        background: rgba(10, 10, 10, 0.97);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-left: 1px solid var(--grey-faint);
+        padding: 100px 32px 40px;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 90;
+    }
+}
+
 /* ---------- HERO ---------- */
 
 .hero {
@@ -1930,6 +1974,7 @@ body.nav-open .social-dock {
     background-color: var(--charcoal);
     padding: 24px;
     width: 900px;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2141,3 +2186,85 @@ body.nav-open .social-dock {
     .contact-card .content:hover .contact-icon img{
     filter: invert(75%) sepia(53%) saturate(496%) hue-rotate(358deg) brightness(93%) contrast(91%);
     }
+
+    /* ---------- RESPONSIVE PARA CONTACTO (solo ajustes necesarios) ---------- */
+
+@media (max-width: 768px) {
+    /* Formulario */
+    .modalContainer {
+        padding: 16px;
+        width: 100%;
+    }
+
+    .form-container {
+        padding: 20px 16px;
+        width: 100%;
+    }
+
+    .form-container .form-group input,
+    .form-container .form-group textarea {
+        font-size: 16px; /* Evita zoom en iOS */
+    }
+
+    .form-container .form-submit-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Tarjetas de contacto */
+    .contactoEsco {
+        padding: 10px;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .contact-card {
+        padding: 15px;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .contact-card .content {
+        min-width: 100%;
+        padding: 5px 0;
+    }
+
+    .contact-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .contact-card .details {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modalContainer {
+        padding: 12px;
+    }
+
+    .form-container {
+        padding: 16px 12px;
+    }
+
+    .form-container .form-group input,
+    .form-container .form-group textarea {
+        font-size: 16px;
+        padding: 8px 12px;
+    }
+
+    .form-container .form-group textarea {
+        height: 80px;
+    }
+
+    .contact-card .details {
+        font-size: 13px;
+    }
+
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+    }
+}

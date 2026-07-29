@@ -117,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Menú móvil
 document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.getElementById('navToggle');
+    const closeBtn = document.getElementById('navClose');
     const nav = document.getElementById('mainNav');
     if (!toggle || !nav) return;
 
@@ -128,15 +129,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+    
+    // Cerrar con el botón X
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => setOpen(false));
+    }
 
+    // Cerrar al hacer clic en un enlace
     nav.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => setOpen(false));
     });
 
+    // Cerrar con Escape
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') setOpen(false);
     });
 
+    // Cerrar al hacer resize a desktop
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) setOpen(false);
     });
